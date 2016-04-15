@@ -21,3 +21,4 @@ insecure                # Allow all DB writes from clients (for prototyping)
 angular-templates
 fortawesome:fontawesome
 materialize:materialize
+arnogregorian:angularjs-dragula
