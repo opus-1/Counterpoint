@@ -3,7 +3,6 @@
 </head>
 
 <body ng-app="counterpoint" layout="column">
-
   <md-toolbar class="md-hue-2">
     <h2>
        <span>CounterPoint</span>
@@ -17,6 +16,9 @@
       </md-content>
     </md-sidenav>
     <div layout="column" flex>
+      <md-content>
+        <ui-view></ui-view>
+      </md-content>
     </div>
   </div>
 </body>
