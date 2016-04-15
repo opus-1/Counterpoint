@@ -12,17 +12,17 @@ app.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
   });
   $stateProvider
     .state('main', {
-      url: '/',
+      url: '/home',
       templateUrl: 'client/templates/main.html',
       controller: 'MainCtrl'
     })
-		.state('main.swimlanes', {
+		.state('swimlanes', {
       url: '/kanban',
       templateUrl: 'client/templates/swimlanes.html',
       controller: 'SwimlanesCtrl'
     });
 
-  $urlRouterProvider.otherwise("/");
+  $urlRouterProvider.otherwise("/home");
 });
 
 app.controller('MainCtrl', function($scope) {
