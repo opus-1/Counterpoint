@@ -2,12 +2,12 @@
   <h1>Todo List</h1>
 </header> -->
 
-<div class="swimlane" dragula='swimlane-{{$index}}"'
-  dragula-scope='$parent' ng-repeat="swimlane in $ctrl.swimlanes">
+<div class="swimlane"
+  ng-repeat="swimlane in $ctrl.swimlanes">
   <div class="swimlane-header">
     {{swimlane.title}}
   </div>
-  <div class="swimlane-contents">
+  <div class="swimlane-contents" dragula="swimlanes">
     <div class="swimlane-card" ng-repeat="card in swimlane.cards">
       <div class="row">
         <div class="col s12 m6">
