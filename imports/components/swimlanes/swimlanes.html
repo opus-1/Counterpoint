@@ -1,0 +1,22 @@
+<!-- <header>
+  <h1>Todo List</h1>
+</header> -->
+
+<div class="swimlane" ng-repeat="swimlane in $ctrl.swimlanes">
+  <div class="swimlane-header">
+    {{swimlane.title}}
+  </div>
+  <div class="swimlane-contents">
+    <div class="swimlane-card" ng-repeat="card in swimlane.cards">
+      <div class="title">
+        {{card.title}}
+      </div>
+      <div class="contents">
+        {{card.description}}
+      </div>
+      <div class="footer">
+
+      </div>
+    </div>
+  </div>
+</div>
