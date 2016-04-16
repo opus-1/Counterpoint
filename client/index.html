@@ -4,10 +4,24 @@
 
 <body ng-app="counterpoint" layout="column">
   <md-toolbar class="md-hue-2">
-    <h2>
-       <span><img src="/logo/counterpoint.png"></img></span>
-     </h2>
-    <span flex></span>
+    <div class="md-toolbar-tools">
+      <h3>
+        <img width="168" height="27" src="/logo/counterpoint.png"></img>
+      </h3>
+      <span flex class="flex"></span>
+      <md-button
+        class="md-icon-button launch">
+        <i class="fa fa-bars fa-lg"></i>
+      </md-button>
+      <md-button
+        class="md-icon-button launch">
+        <i class="fa fa-user fa-lg"></i>
+      </md-button>
+      <md-button
+        class="md-icon-button launch">
+        <i class="fa fa-sign-out fa-lg"></i>
+      </md-button>
+    </div>
   </md-toolbar>
   <div flex layout="row">
     <md-sidenav flex="15" md-is-locked-open="true" class="md-whiteframe-z1">
