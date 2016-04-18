@@ -1,24 +1,9 @@
 <head>
-  <title>Counterpoint</title>
+  <title>CounterPoint</title>
+  <meta name="viewport" content="width=device-width">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
-<body ng-app="counterpoint" layout="column">
-  <md-toolbar class="md-hue-2">
-    <h2>
-       <span><img src="/logo/counterpoint.png"></img></span>
-     </h2>
-    <span flex></span>
-  </md-toolbar>
-  <div flex layout="row">
-    <md-sidenav flex="15" md-is-locked-open="true" class="md-whiteframe-z1">
-      <md-content>
-        sidenav
-      </md-content>
-    </md-sidenav>
-    <div layout="column" flex>
-      <md-content>
-        <ui-view></ui-view>
-      </md-content>
-    </div>
-  </div>
+<body ng-app="counterpoint">
+  <div ui-view layout="row" layout-fill></div>
 </body>

@@ -1,0 +1,28 @@
+<div layout="row">
+	<div ng-repeat="list in lists track by $index" flex layout="column" layout-margin>
+		
+    <md-whiteframe class="md-whiteframe-1dp" layout layout-align="center center">
+			<h2>{{list.name}}</h2>
+		</md-whiteframe>
+    
+		<md-card ng-repeat="task in tasks track by $index" ng-if="task.listId == list.id" 
+      md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">{{ task.name }}</span>
+            <!--<span class="md-subhead">Large</span>-->
+          </md-card-title-text>
+          <!--<md-card-title-media>
+            <div class="md-media-lg card-media"></div>
+          </md-card-title-media>-->
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button>Archive</md-button>
+          <md-button>View</md-button>
+        </md-card-actions>
+      </md-card>
+	</div>
+</div>
+<md-button class="md-fab md-primary md-fab-bottom-right"  aria-label="add new list" href="#" >  
+   <i class="material-icons md-36">add</i>
+</md-button>
