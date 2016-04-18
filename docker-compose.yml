@@ -1,0 +1,17 @@
+counterpoint:
+  image: counterpoint
+  ports:
+   - "8080:80"
+  volumes:
+   - /srv/docker/counterpoint:/data
+  links:
+   - mongo
+  environment:
+   - MONGO_URL=mongodb://mongo/counterpoint
+   - ROOT_URL=http://192.168.56.99:8080
+   - MAIL_URL=smtp://na.relay.ibm.com:25
+
+mongo:
+  image: mongo:latest
+  volumes:
+   - /srv/docker/counterpoint_db:/data

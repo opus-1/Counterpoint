@@ -2,18 +2,22 @@ angular.module('counterpoint').controller('HomeCtrl', function ($scope) {
 	var lists = [
 		{
 			id: 1,
-			name: 'Todo'
+			name: 'Backlog'
 		},
 		{
 			id: 2,
-			name: 'Doing'
+			name: 'Development'
 		},
 		{
 			id: 3,
-			name: 'Done'
+			name: 'Test'
+		},
+		{
+			id: 4,
+			name: 'Complete'
 		}
 	];
-	
+
 	var tasks = [
 		{
 			id: 1,
@@ -43,18 +47,18 @@ angular.module('counterpoint').controller('HomeCtrl', function ($scope) {
 		},{
 			id: 7,
 			name: 'Add a support debug download option',
-			listId: 1
+			listId: 4
 		},{
 			id: 8,
 			name: 'Create .css fonts for things like vmware, AIX/HMC/IBM, openstack',
-			listId: 1
+			listId: 4
 		},{
 			id: 9,
 			name: 'Create deployment wizard for adding software performers',
 			listId: 1
 		}
 	]
-	
+
 	$scope.helpers({
 		lists: () => [].concat(lists),
 		tasks: () => [].concat(tasks)
