@@ -1,11 +1,14 @@
 <div layout="row">
-	<div ng-repeat="list in lists track by $index" flex layout="column" layout-margin>
+	<div ng-repeat="list in lists track by $index"
+		flex layout="column" layout-margin
+		dragula="'swimlanes'" dragula-scope="$parent">
 
     <md-whiteframe class="md-whiteframe-1dp" layout layout-align="center center">
 			<h2>{{list.name}}</h2>
 		</md-whiteframe>
 
-		<md-card ng-repeat="task in tasks track by $index" ng-if="task.listId == list.id"
+		<md-card ng-repeat="task in list.tasks track by $index"
+			class="draggable"
       md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
         <md-card-title>
           <md-card-title-text>

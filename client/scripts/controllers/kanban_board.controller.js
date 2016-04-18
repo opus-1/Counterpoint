@@ -1,20 +1,24 @@
-angular.module('counterpoint').controller('HomeCtrl', function ($scope) {
+angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope) {
 	var lists = [
 		{
 			id: 1,
-			name: 'Backlog'
+			name: 'Backlog',
+			tasks: []
 		},
 		{
 			id: 2,
-			name: 'Development'
+			name: 'Development',
+			tasks: []
 		},
 		{
 			id: 3,
-			name: 'Test'
+			name: 'Test',
+			tasks: []
 		},
 		{
 			id: 4,
-			name: 'Complete'
+			name: 'Complete',
+			tasks: []
 		}
 	];
 
@@ -57,7 +61,20 @@ angular.module('counterpoint').controller('HomeCtrl', function ($scope) {
 			name: 'Create deployment wizard for adding software performers',
 			listId: 1
 		}
-	]
+	];
+
+	// populate the "list" tasks ... for drag/drop, we need ordered arrays for each list ...
+	for(var i in tasks)
+	{
+		for(var j in lists)
+		{
+			if(lists[j].id == tasks[i].listId)
+			{
+				lists[j].tasks.push(tasks[i]);
+				break;
+			}
+		}
+	}
 
 	$scope.helpers({
 		lists: () => [].concat(lists),
