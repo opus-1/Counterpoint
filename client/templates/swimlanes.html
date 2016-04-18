@@ -1,0 +1,14 @@
+<div layout="row">
+  <div dragula="'bag-1'" flex layout="column" ng-repeat="swimlane in swimlanes track by $index">
+    <h3>{{swimlane.name}}</h3>
+    <div layout="column" flex>
+      <md-card ng-repeat="task in tasks track by $index">
+        {{task.name}}
+      </md-card>
+    </div>
+  </div>
+</div>
+
+<ol>
+	<li ng-repeat="task in tasks track by $index">{{task.name}}: {{task.swimlane}}</li>
+</ol>
