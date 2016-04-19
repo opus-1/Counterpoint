@@ -22,7 +22,7 @@ body {
 }
 
 .share-label {
-  vert-align: middle;
+  vertical-align: middle;
   margin-left: 10px;
 }
 
@@ -119,7 +119,7 @@ md-icon {
   height: auto;
 }
 
-md-sidenav.md-locked-open.md-sidenav-left {
+md-sidenav._md-locked-open.md-sidenav-left {
   width: $left-sidenav-width;
   min-width: $left-sidenav-width;
   max-width: $left-sidenav-width;

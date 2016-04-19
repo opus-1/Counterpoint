@@ -1,11 +1,11 @@
 import '/node_modules/angular-dragula/dist/dragula.css';
-import '/node_modules/dragula/dist/dragula.css';
+import ngMaterial from 'angular-material';
 
 var angularDragula = require('angular-dragula');
 
 var app = angular.module('counterpoint', [
   'angular-meteor',
-  'ngMaterial',
+  ngMaterial,
   'ui.router',
   angularDragula(angular)
 ]);
@@ -24,12 +24,12 @@ app.config(function ($urlRouterProvider, $stateProvider, $locationProvider, $mdT
     abstract: true
   })
   .state('main.board', {
-    url: '/kanban/board',
+    url: '/board',
     templateUrl: 'client/templates/kanban_board.html',
     controller: 'KanbanBoardCtrl'
   });
 
-  $urlRouterProvider.otherwise("/kanban/board");
+  $urlRouterProvider.otherwise("/board");
 
   $mdIconProvider.icon('user', 'images/user.svg', 64);
 

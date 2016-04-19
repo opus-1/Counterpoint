@@ -1,2 +1,7 @@
+@import 'angular-material.scss';
 @import '_custom.scss';
 @import '_table.scss';
+
+
+md-sidenav .md-toolbar-tools h1 {
+  color: white !important; }

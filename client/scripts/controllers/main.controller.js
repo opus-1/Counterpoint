@@ -4,7 +4,7 @@ angular.module('counterpoint').controller('MainCtrl', ['$scope', '$mdSidenav',
       {
         name: 'Dashboard',
         icon: 'dashboard',
-        sref: '.home'
+        sref: '.board'
       },
       {
         name: 'Profile',
