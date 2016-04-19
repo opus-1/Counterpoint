@@ -1,0 +1,75 @@
+<div layout="column" flex>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>CounterPoint -- Login</h2>
+            <span flex></span>
+        </div>
+    </md-toolbar>
+    <div layout="row" layout-align="center center" flex="40">
+        <md-whiteframe class="md-whiteframe-1dp" md-border-bottom layout layout-padding layout-align="center center" flex="40">
+        <md-tabs md-dynamic-height flex>
+            <md-tab label="login">
+                <md-content class="md-padding">
+                    <div layout="row" layout-align="center center">
+                        <form name="loginForm" data-ng-submit="login()" flex="80">
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Username:</label>
+                                    <input ng-model="username" required>
+                                </md-input-container>
+
+                                <md-input-container class="md-block">
+                                    <label>Password:</label>
+                                    <input ng-model="password" type="password" required>
+                                </md-input-container>
+
+                            </div>
+                            <div layout="row" layout-align="end center">
+                                <md-button type="button" ng-click="handleCancel(); $event.stopPropagation();" aria-label="Cancel">
+                                    Cancel
+                                </md-button>
+                                <md-button type="submit" class="md-primary" ng-class="{'md-raised md-hue-1': (loginForm.$dirty && loginForm.$valid) }" aria-label="Login">
+                                    Login
+                                </md-button>
+                            </div>
+                        </form>
+                    </div>
+                </md-content>
+            </md-tab>
+            <md-tab label="register">
+                <md-content class="md-padding">
+                    <div layout="row" layout-align="center center">
+                        <form name="registerForm" data-ng-submit="register()" flex="80">
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Username:</label>
+                                    <input ng-model="username" required>
+                                </md-input-container>
+
+                                <md-input-container class="md-block">
+                                    <label>Password:</label>
+                                    <input ng-model="password" type="password" required>
+                                </md-input-container>
+                                <md-input-container class="md-block">
+                                    <label>Password:</label>
+                                    <input ng-model="password" type="password" required>
+                                </md-input-container>
+
+                            </div>
+                            <div layout="row" layout-align="end center">
+                                <md-button type="button" ng-click="handleCancel(); $event.stopPropagation();" aria-label="Cancel">
+                                    Cancel
+                                </md-button>
+                                <md-button type="submit" class="md-primary" ng-class="{'md-raised md-hue-1': (registerForm.$dirty && registerForm.$valid) }" 
+                                aria-label="Register">
+                                    Register
+                                </md-button>
+                            </div>
+                        </form>
+                    </div>
+                </md-content>
+            </md-tab>
+        </md-tabs>
+        </md-whiteframe>
+    </div>
+</div>

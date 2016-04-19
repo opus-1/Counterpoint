@@ -1,5 +1,5 @@
 if (Meteor.isServer) {
-  Meteor.startup(function () {
+  Meteor.startup(function() {
 
     if (Swimlanes.find().count() === 0) {
       var swimlanes = [

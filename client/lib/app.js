@@ -27,8 +27,13 @@ app.config(function ($urlRouterProvider, $stateProvider, $locationProvider, $mdT
     url: '/board',
     templateUrl: 'client/templates/kanban_board.html',
     controller: 'KanbanBoardCtrl'
+  })
+  .state('login',{
+    url: '/login',
+    templateUrl: 'client/templates/login.html',
+    controller: 'LoginCtrl'
   });
-
+  
   $urlRouterProvider.otherwise("/board");
 
   $mdIconProvider.icon('user', 'images/user.svg', 64);
