@@ -2,7 +2,7 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 
 
 	$scope.helpers({
-		lists: () => Swimlanes.find({}, {sort: ['order']})
+		lists: () => Swimlanes.find({}, { sort: ['order'] })
 	});
 
 	$scope.getTask = function (id) {
@@ -27,30 +27,35 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 	$scope.$on('swimlanes.drop-model', function (e, el, target, source) {
 		var source_list = null;
 		var target_list = null;
-		for(var i in $scope.lists)
-		{
+		for (var i in $scope.lists) {
 			var list = $scope.lists[i];
-			if(list._id == source.context.attributes['data-list-id'].value)
+			if (list._id == source.context.attributes['data-list-id'].value)
 			{ source_list = list; }
-			else if(list._id == target.context.attributes['data-list-id'].value)
+			else if (list._id == target.context.attributes['data-list-id'].value)
 			{ target_list = list; }
 
-			if(source_list && target_list)
-			{ break; }
+			if (source_list && target_list) {
+				break;
+			}
 		}
 
-		if(source_list)
-		{
+		if (source_list) {
 			Swimlanes.update({ _id: source_list._id }, { $set: { tasks: source_list.tasks } });
 			console.debug(source_list)
 		}
 
-		if(target_list)
-		{
+		if (target_list) {
 			Swimlanes.update({ _id: target_list._id }, { $set: { tasks: target_list.tasks } });
 			console.debug(target_list)
 		}
-  });
+		if (source_list && target_list) {
+			var subject = source_list.name + " --> " + target_list.name;
+			var username = Meteor.user().username;
+			var text = username + " moved task"; 
+			Messages.insert({ subject: subject, username: username, text: text });
+		}
+
+	});
 
 	function insertTask(name, list_id) {
 		Tasks.insert({
