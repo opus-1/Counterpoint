@@ -1,19 +1,23 @@
 if (Meteor.isServer) {
   Meteor.startup(function () {
-    
+
     if (Swimlanes.find().count() === 0) {
       var swimlanes = [
         {
           name: 'Backlog',
+          order: 1,
           tasks: []
         }, {
           name: 'Development',
+          order: 2,
           tasks: []
         }, {
           name: 'Test',
+          order: 3,
           tasks: []
         }, {
           name: 'Complete',
+          order: 4,
           tasks: []
         }
       ];

@@ -2,7 +2,7 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 
 
 	$scope.helpers({
-		lists: () => Swimlanes.find({})
+		lists: () => Swimlanes.find({}, {sort: ['order']})
 	});
 
 	$scope.getTask = function (id) {
@@ -24,9 +24,33 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 		});
 	}
 
-	$scope.$on('swimlanes.drop-model', function (e, el) {
-		// it got moved!
-    });
+	$scope.$on('swimlanes.drop-model', function (e, el, target, source) {
+		var source_list = null;
+		var target_list = null;
+		for(var i in $scope.lists)
+		{
+			var list = $scope.lists[i];
+			if(list._id == source.context.attributes['data-list-id'].value)
+			{ source_list = list; }
+			else if(list._id == target.context.attributes['data-list-id'].value)
+			{ target_list = list; }
+
+			if(source_list && target_list)
+			{ break; }
+		}
+
+		if(source_list)
+		{
+			Swimlanes.update({ _id: source_list._id }, { $set: { tasks: source_list.tasks } });
+			console.debug(source_list)
+		}
+
+		if(target_list)
+		{
+			Swimlanes.update({ _id: target_list._id }, { $set: { tasks: target_list.tasks } });
+			console.debug(target_list)
+		}
+  });
 
 	function insertTask(name, list_id) {
 		Tasks.insert({
