@@ -1,3 +1,6 @@
+/* Not 100% sure why these are necessary... seems like they would be
+part of the main Dragula css. */
+
 .draggable {
   cursor: move;
   cursor: grab;

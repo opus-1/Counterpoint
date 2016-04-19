@@ -1,4 +1,4 @@
-angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope) {
+angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, dragulaService) {
 	var lists = [
 		{
 			id: 1,
@@ -80,5 +80,10 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope) {
 		lists: () => [].concat(lists),
 		tasks: () => [].concat(tasks)
 	})
+
+	$scope
+		.$on('swimlanes.drop-model', function (e, el) {
+			// it got moved!
+    })
 
 });

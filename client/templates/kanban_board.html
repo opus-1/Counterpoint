@@ -1,15 +1,16 @@
 <div layout="row">
 	<div ng-repeat="list in lists track by $index"
-		flex layout="column" layout-margin
-		dragula="'swimlanes'" dragula-scope="$parent">
+		flex layout="column" layout-margin>
 
     <md-whiteframe class="md-whiteframe-1dp" layout layout-align="center center">
 			<h2>{{list.name}}</h2>
 		</md-whiteframe>
 
-		<md-card ng-repeat="task in list.tasks track by $index"
-			class="draggable"
-      md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+		<div dragula="'swimlanes'" dragula-scope="$parent" dragula-model="list.tasks">
+
+			<md-card ng-repeat="task in list.tasks track by $index"
+				class="draggable"
+	      md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
         <md-card-title>
           <md-card-title-text>
             <span class="md-headline">{{ task.name }}</span>
@@ -24,6 +25,7 @@
           <md-button>View</md-button>
         </md-card-actions>
       </md-card>
+		</div>
 	</div>
 </div>
 <md-button class="md-fab md-primary md-fab-bottom-right"  aria-label="add new list" href="#" >
