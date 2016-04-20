@@ -1,10 +1,10 @@
-<md-dialog aria-label="List dialog" flex="85">
-  <form ng-controller="TaskCtrl">
+<md-dialog aria-label="List dialog" flex="60" ng-controller="TaskCtrl">
+  <form >
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>{{task.name}}</h2>
         <span flex></span>
-        <md-button class="md-icon-button" ng-click="cancel()">
+        <md-button class="md-icon-button" ng-click="cancel()" aria-label="close">
           <i class="fa fa-times"></i>
         </md-button>
       </div>
@@ -52,10 +52,10 @@
     </div>
 
     <md-dialog-actions>
-      <md-button ng-click="edit()" class="md-primary">
+      <md-button ng-click="edit()" class="md-primary" aria-label="Update">
         <i class="fa fa-pencil"></i> Edit
       </md-button>
-      <md-button ng-click="cancel()" class="md-primary">
+      <md-button ng-click="cancel()" class="md-primary" aria-label="Cancel">
         Close
       </md-button>
     </md-dialog-actions>
