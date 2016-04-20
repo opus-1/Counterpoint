@@ -56,3 +56,24 @@ app.config(function ($urlRouterProvider, $stateProvider, $locationProvider, $mdT
   $mdThemingProvider.setDefaultTheme('default');
   $mdThemingProvider.alwaysWatchTheme(true);
 });
+
+
+app.filter('tasksIdsFilter', function() {
+   return function(task_ids, condition) {
+    var filtered = [];
+
+    if(condition === undefined || condition === ''){
+      return task_ids;
+    }
+
+    var re = new RegExp(condition, "i")
+    angular.forEach(task_ids, function(task_id) {
+      var t = Tasks.findOne({_id: task_id});
+      if(re.test(t.name)){
+        filtered.push(task_id);
+      }
+    });
+
+    return filtered;
+  };
+});
