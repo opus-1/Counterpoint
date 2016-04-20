@@ -1,3 +1,7 @@
+/* global Meteor */
+/* global Messages */
+/* global Tasks */
+/* global Swimlanes */
 angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, dragulaService, $mdDialog, $rootScope) {
 
 	$scope.helpers({
@@ -9,9 +13,9 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 		return Tasks.findOne({ _id: id });
 	};
 
-	$scope.listTaskNames = function(arr){
+	$scope.listTaskNames = function (arr) {
 		var out = [];
-		angular.forEach(arr, function(el){
+		angular.forEach(arr, function (el) {
 			out.push($scope.getTask(el).name);
 		});
 		return out;
@@ -87,18 +91,17 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 			preserveScope: true,
 			templateUrl: 'client/templates/partials/taskEdit.html',
 			scope: $scope,
-			controller: function DialogController($scope, $mdDialog) {
-				console.debug($scope.task);
-				$scope.cancel = function() {
-					$mdDialog.hide();
-				}
-			}
-		});
-	}
+			clickOutsideToClose: true
+		}).then(function (answer) {
+			console.log(answer);
+		}, function () {
+			console.log("Dialog closed");
+		});;
+	};
 
-	$scope.saveTask = function(task_id) {
+	$scope.saveTask = function (task_id) {
 
-	}
+	};
 
 	function insertTask(name, list_id) {
 		Tasks.insert({
@@ -106,7 +109,7 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 		}, function (error, task_id) {
 			Swimlanes.update({ _id: list_id }, { $push: { tasks: task_id } });
 		});
-	}
+	};
 
 	$scope.addNewList = function (ev) {
 		var confirm = $mdDialog.prompt()
@@ -119,10 +122,10 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 			.cancel('Cancel');
 		$mdDialog.show(confirm).then(function (result) {
 			var order = Swimlanes.find({}).count();
-			Swimlanes.insert({name: result, order: order + 1});
+			Swimlanes.insert({ name: result, order: order + 1 });
 			var username = Meteor.user().profile.name;
 			var text = "by " + username;
-			Messages.insert({subject: "New list added", username: text , createdAt: Date.now(), read: false })
+			Messages.insert({ subject: "New list added", username: text, createdAt: Date.now(), read: false })
 		}, function () {
 		});
 	};
