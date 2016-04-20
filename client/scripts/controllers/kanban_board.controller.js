@@ -1,5 +1,4 @@
-angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, dragulaService, $mdDialog) {
-
+angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, dragulaService, $mdDialog, $rootScope) {
 
 	$scope.helpers({
 		lists: () => Swimlanes.find({}, { sort: ['order'] })
@@ -9,6 +8,14 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 		return Tasks.findOne({ _id: id });
 	};
 
+	$scope.listTaskNames = function(arr){
+		var out = [];
+		angular.forEach(arr, function(el){
+			out.push($scope.getTask(el).name);
+		});	
+		return out;
+	};
+	
 	$scope.newTaskDialog = function (ev, list_id) {
 		var confirm = $mdDialog.prompt()
 			.title('Add New Task')
@@ -46,7 +53,7 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 
 		if (target_list) {
 			Swimlanes.update({ _id: target_list._id }, { $set: { tasks: target_list.tasks } });
-			// console.debug(target_list)
+			//  console.debug(target_list)
 		}
 		if (source_list && target_list) {
 			var subject = source_list.name + " --> " + target_list.name;
@@ -83,5 +90,6 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 		}, function () {
 		});
 	};
-
+	
+	
 });

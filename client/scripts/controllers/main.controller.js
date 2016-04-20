@@ -1,5 +1,5 @@
-angular.module('counterpoint').controller('MainCtrl', ['$scope', '$mdSidenav', '$state',
-  function ($scope, $mdSidenav, $state) {
+angular.module('counterpoint').controller('MainCtrl', ['$scope', '$mdSidenav', '$state', '$rootScope',
+  function ($scope, $mdSidenav, $state, $rootScope) {
     var menuItems = [
       {
         name: 'Dashboard',
@@ -16,7 +16,7 @@ angular.module('counterpoint').controller('MainCtrl', ['$scope', '$mdSidenav', '
     $scope.toggleRightSidebar = function toggleRightSidebar() {
       $mdSidenav('right').toggle();
     };
-
+   
     $scope.helpers({
       tasks: () => Tasks.find({}),
       menuItems: () => menuItems
@@ -31,6 +31,8 @@ angular.module('counterpoint').controller('MainCtrl', ['$scope', '$mdSidenav', '
 
         }
       });
-    }
+    };
+    
+    $rootScope.search = $scope.search;
 
   }]);
