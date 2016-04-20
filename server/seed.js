@@ -29,7 +29,8 @@ if (Meteor.isServer) {
     if (Tasks.find().count() === 0) {
       var tasks = [
         {
-          name: 'Improve test automation coverage'
+          name: 'Improve test automation coverage',
+          description: "This is a long description about this work item, yo."
         }, {
           name: 'Enhancement of storage configuration (LVM)'
         }, {
