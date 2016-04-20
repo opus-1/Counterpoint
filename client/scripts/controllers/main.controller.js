@@ -13,10 +13,21 @@ angular.module('counterpoint').controller('MainCtrl', ['$scope', '$mdSidenav', '
       }
     ];
 
+    $scope.getUserName = function(user) {
+      if(!user || !user.profile) { return ''; }
+      if(Array.isArray(user.profile.name))
+      { return user.profile.name[user.profile.name.length-1]; }
+      else { return user.profile.name; }
+    }
+
     $scope.toggleRightSidebar = function toggleRightSidebar() {
       $mdSidenav('right').toggle();
     };
-   
+
+    $scope.openLeftMenu = function() {
+      $mdSidenav('left').toggle();
+    }
+
     $scope.helpers({
       tasks: () => Tasks.find({}),
       menuItems: () => menuItems
@@ -32,7 +43,7 @@ angular.module('counterpoint').controller('MainCtrl', ['$scope', '$mdSidenav', '
         }
       });
     };
-    
+
     $rootScope.search = $scope.search;
 
   }]);

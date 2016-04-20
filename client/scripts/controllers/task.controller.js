@@ -4,7 +4,7 @@ angular.module('counterpoint').controller('TaskCtrl',['$scope',
     $scope.me = Meteor.user();
 
     console.log("TaskCtrl started");
-    console.log($scope.task);
+    // console.log($scope.task);
 
     $scope.getComment = function(id) {
   		var comment = Comments.findOne({ _id: id });
@@ -30,6 +30,11 @@ angular.module('counterpoint').controller('TaskCtrl',['$scope',
       if(Array.isArray(user.profile.name))
       { return user.profile.name[user.profile.name.length-1]; }
       else { return user.profile.name; }
+    }
+
+    $scope.getLabels = function(task) {
+      console.log("hello?");
+      return ['hi there', 'this is a test']
     }
 
     $scope.getUser = function(user_id_or_email) {

@@ -12,8 +12,16 @@
 
     <div class="md-dialog-content">
       <md-dialog-content>
-        <h2>Description</h2>
-        <p>{{task.description}}</p>
+        <div style="float: right">
+          <md-chips>
+            <md-chip ng-repeat="label in getLabels(task)">
+              {{label}}
+            </md-chip>
+          </md-chips>
+        </div>
+        <p>
+          {{task.description}}
+        </p>
         <hr />
 
         <div layout="row">
@@ -37,7 +45,8 @@
               <form name="comment_form">
                 <md-input-container style="width: 80%" flex="auto">
                   <label>Add Comment</label>
-                  <input ng-model="new_comment.text">
+                  <textarea ng-model="new_comment.text">
+                  </textarea>
                 </md-input-container>
                 <button flex class="md-primary md-button md-ink-ripple" type="button"
                   aria-label="add comment" ng-click="addComment($event)">

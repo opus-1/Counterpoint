@@ -3,6 +3,7 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 	$scope.helpers({
 		lists: () => Swimlanes.find({}, { sort: ['order'] })
 	});
+	$scope.listTasks = {};
 
 	$scope.getTask = function (id) {
 		return Tasks.findOne({ _id: id });
@@ -12,10 +13,22 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 		var out = [];
 		angular.forEach(arr, function(el){
 			out.push($scope.getTask(el).name);
-		});	
+		});
 		return out;
 	};
-	
+
+	$scope.listTasks = function(list) {
+		if(!$scope.listTasks[list._id])
+		{
+			$scope.listTasks[list._id] = [];
+			angular.forEach(list.tasks, function(el){
+				$scope.listTasks[list._id].push($scope.getTask(el));
+			});
+		}
+
+		return $scope.listTasks[list._id]
+	}
+
 	$scope.newTaskDialog = function (ev, list_id) {
 		var confirm = $mdDialog.prompt()
 			.title('Add New Task')
@@ -64,14 +77,18 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 
 	});
 
-	$scope.editTask = function(task_id) {
+	$scope.editTask = function(task) {
 		 var parentEl = angular.element(document.body);
-		 $scope.task = $scope.getTask(task_id);
+
+		 // TODO: Make this a local scope.  But it's not working exactly.
+		 $scope.task = task;
 		 $mdDialog.show({
 			parent: parentEl,
+			preserveScope: true,
 			templateUrl: 'client/templates/partials/taskEdit.html',
 			scope: $scope,
 			controller: function DialogController($scope, $mdDialog) {
+				console.debug($scope.task);
 				$scope.cancel = function() {
 					$mdDialog.hide();
 				}
@@ -109,6 +126,6 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 		}, function () {
 		});
 	};
-	
-	
+
+
 });

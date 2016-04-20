@@ -71,5 +71,19 @@ if (Meteor.isServer) {
       }
     }
 
+    if (Labels.find().count() === 0) {
+      var labels = [
+        {
+          label: 'feature'
+        }
+      ];
+
+      for (var i = 0; i < labels.length; i++) {
+        var lid = Labels.insert(labels[i]);
+        var task = Tasks.findOne({name: 'Improve test automation coverage'});
+        Tasks.update({ _id: task._id }, { $push: { labels: lid } });
+      }
+    }
+
   });
 }
