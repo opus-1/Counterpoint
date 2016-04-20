@@ -1,5 +1,5 @@
-angular.module('counterpoint').controller('MainCtrl', ['$scope', '$mdSidenav',
-  function ($scope, $mdSidenav) {
+angular.module('counterpoint').controller('MainCtrl', ['$scope', '$mdSidenav', '$state',
+  function ($scope, $mdSidenav, $state) {
     var menuItems = [
       {
         name: 'Dashboard',
@@ -21,5 +21,16 @@ angular.module('counterpoint').controller('MainCtrl', ['$scope', '$mdSidenav',
       tasks: () => Tasks.find({}),
       menuItems: () => menuItems
     });
+
+    $scope.logout = function () {
+      $mdSidenav('right').close();
+      Meteor.logout(function (err) {
+        console.log(err);
+        if (!err) {
+          $state.go('login');
+
+        }
+      });
+    }
 
   }]);
