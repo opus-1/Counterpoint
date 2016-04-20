@@ -1,5 +1,5 @@
 <div layout="row">
-    <div ng-repeat="list in lists track by $index" flex layout="column" layout-margin>
+    <div ng-repeat="list in lists track by $index" flex layout="column" layout-margin ng-cloak="">
 
         <md-whiteframe class="md-whiteframe-1dp" layout >
             <div layout layout-margin flex layout-align="center center">
@@ -15,12 +15,12 @@
                 <span>Empty: click on (+) to add task to this list.</span>
                 <span>Or you can move task from other list</span>
             </div>
-            <md-card ng-repeat="task_id in list.tasks track by $index" class="draggable"
+            <md-card ng-repeat="task in listTaskNames(list.tasks) | filter: search track by $index" class="draggable"
                      md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}"
                      md-theme-watch>
                 <md-card-title>
                     <md-card-title-text>
-                        <span class="md-headline">{{ getTask(task_id).name }}</span>
+                        <span class="md-title">{{ task }}</span>
                         <span class="md-content">{{ getTask(task_id).description }}</span>
                     </md-card-title-text>
                 </md-card-title>
