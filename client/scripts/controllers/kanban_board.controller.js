@@ -4,24 +4,17 @@
 /* global Swimlanes */
 angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, dragulaService, $mdDialog, $rootScope) {
 
+	$scope.listTasks = {};
 	$scope.helpers({
 		lists: () => Swimlanes.find({}, { sort: ['order'] })
 	});
-	$scope.listTasks = {};
 
 	$scope.getTask = function (id) {
 		return Tasks.findOne({ _id: id });
 	};
 
-	$scope.listTaskNames = function (arr) {
-		var out = [];
-		angular.forEach(arr, function (el) {
-			out.push($scope.getTask(el).name);
-		});
-		return out;
-	};
 
-	$scope.listTasks = function(list) {
+	$scope.getListTasks = function(list) {
 		if(!$scope.listTasks[list._id])
 		{
 			$scope.listTasks[list._id] = [];
@@ -32,6 +25,9 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 
 		return $scope.listTasks[list._id]
 	}
+
+	for(var x in $scope.lists)
+	{ $scope.getListTasks($scope.lists[x]); }
 
 	$scope.newTaskDialog = function (ev, list_id) {
 		var confirm = $mdDialog.prompt()
@@ -65,12 +61,12 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 
 		if (source_list) {
 			Swimlanes.update({ _id: source_list._id }, { $set: { tasks: source_list.tasks } });
-			// console.debug(source_list)
+			$scope.getListTasks(source_list);
 		}
 
 		if (target_list) {
 			Swimlanes.update({ _id: target_list._id }, { $set: { tasks: target_list.tasks } });
-			//  console.debug(target_list)
+			$scope.getListTasks(target_list);
 		}
 		if (source_list && target_list) {
 			var subject = source_list.name + " --> " + target_list.name;
