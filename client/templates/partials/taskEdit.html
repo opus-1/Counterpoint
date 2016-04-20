@@ -1,10 +1,63 @@
-<md-dialog aria-label="List dialog">
-  <md-dialog-content>
-    My name is: {{task.name}}
-  </md-dialog-content>
-  <md-dialog-actions>
-    <md-button ng-click="closeDialog()" class="md-primary">
-      OK
-    </md-button>
-  </md-dialog-actions>
+<md-dialog aria-label="List dialog" flex="85">
+  <form ng-controller="TaskCtrl">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>{{task.name}}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <i class="fa fa-times"></i>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <div class="md-dialog-content">
+      <md-dialog-content>
+        <h2>Description</h2>
+        <p>{{task.description}}</p>
+        <hr />
+
+        <div layout="row">
+          <div flex>assigned to blah</div>
+          <div flex>udpated at blah</div>
+        </div>
+        <hr />
+
+        <md-list>
+          <md-subheader class="md-no-sticky">Comments</md-subheader>
+          <md-list-item class="md-2-line" ng-repeat="comment_id in task.comments track by $index" ng-if="comment_id">
+            <img class="md-avatar img-circle" ng-src="http://faces.tap.ibm.com/imagesrv/{{getComment(comment_id).user_object.profile.serial}}.jpg?s=115">
+            <div class="md-list-item-text" style="width: 100%">
+              <h3>{{getUserName(getComment(comment_id).user_object)}}</h3>
+              <p>{{getComment(comment_id).text}}</p>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-3-line">
+            <img class="md-avatar img-circle" ng-src="http://faces.tap.ibm.com/imagesrv/{{me.profile.serial}}.jpg?s=115">
+            <div class="md-list-item-text" style="width: 100%">
+              <form name="comment_form">
+                <md-input-container style="width: 80%" flex="auto">
+                  <label>Add Comment</label>
+                  <input ng-model="new_comment.text">
+                </md-input-container>
+                <button flex class="md-primary md-button md-ink-ripple" type="button"
+                  aria-label="add comment" ng-click="addComment($event)">
+                  <i class="material-icons md-12 ng-scope">add</i>
+                  <div class="md-ripple-container"></div>
+                </button>
+              </form>
+            </div>
+          </md-list-item>
+        </md-list>
+      </md-dialog-content>
+    </div>
+
+    <md-dialog-actions>
+      <md-button ng-click="edit()" class="md-primary">
+        <i class="fa fa-pencil"></i> Edit
+      </md-button>
+      <md-button ng-click="cancel()" class="md-primary">
+        Close
+      </md-button>
+    </md-dialog-actions>
+  </form>
 </md-dialog>

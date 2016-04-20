@@ -60,17 +60,15 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 	$scope.editTask = function(task_id) {
 		 var parentEl = angular.element(document.body);
 		 $scope.task = $scope.getTask(task_id);
-		 console.debug("trying...");
 		 $mdDialog.show({
 			parent: parentEl,
 			templateUrl: 'client/templates/partials/taskEdit.html',
 			scope: $scope,
 			controller: function DialogController($scope, $mdDialog) {
-				$scope.closeDialog = function() {
+				$scope.cancel = function() {
 					$mdDialog.hide();
 				}
 			}
-
 		});
 	}
 

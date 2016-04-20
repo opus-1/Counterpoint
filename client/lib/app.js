@@ -1,5 +1,6 @@
 import '/node_modules/angular-dragula/dist/dragula.css';
 import ngMaterial from 'angular-material';
+import Accounts from 'meteor/accounts-base';
 
 var angularDragula = require('angular-dragula');
 
@@ -33,7 +34,7 @@ app.config(function ($urlRouterProvider, $stateProvider, $locationProvider, $mdT
     templateUrl: 'client/templates/login.html',
     controller: 'LoginCtrl'
   });
-  
+
   $urlRouterProvider.otherwise("/board");
 
   $mdIconProvider.icon('user', 'images/user.svg', 64);

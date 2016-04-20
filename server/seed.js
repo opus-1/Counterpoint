@@ -30,7 +30,8 @@ if (Meteor.isServer) {
       var tasks = [
         {
           name: 'Improve test automation coverage',
-          description: "This is a long description about this work item, yo."
+          description: "This is a long description about this work item, yo.",
+          comments: []
         }, {
           name: 'Enhancement of storage configuration (LVM)'
         }, {
@@ -53,7 +54,20 @@ if (Meteor.isServer) {
         Tasks.insert(tasks[i]);
         var task = Tasks.findOne({ name: tasks[i].name });
         Swimlanes.update({ name: 'Backlog' }, { $push: { tasks: task._id } });
+      }
+    }
 
+    if (Comments.find().count() === 0) {
+      var comments = [
+        {
+          text: 'I like this idea!',
+          user: 'pellswo@us.ibm.com'
+        }
+      ];
+      for (var i = 0; i < comments.length; i++) {
+        var cid = Comments.insert(comments[i]);
+        var task = Tasks.findOne({name: 'Improve test automation coverage'});
+        Tasks.update({ _id: task._id }, { $push: { comments: cid } });
       }
     }
 
