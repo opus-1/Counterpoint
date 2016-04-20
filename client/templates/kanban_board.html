@@ -20,14 +20,13 @@
                      md-theme-watch>
                 <md-card-title>
                     <md-card-title-text>
-                        <!--<span class="md-headline">{{ getTask(task_id).name }}</span>-->
-                        <span class="md-subhead">{{ task }}</span>
-                        <!-- <span class="md-subhead">Large</span> -->
+                        <span class="md-title">{{ task }}</span>
+                        <span class="md-content">{{ getTask(task_id).description }}</span>
                     </md-card-title-text>
                 </md-card-title>
                 <md-card-actions layout="row" layout-align="end center">
                     <md-button>Archive</md-button>
-                    <md-button>View</md-button>
+                    <md-button ng-click="editTask(task_id)">View</md-button>
                 </md-card-actions>
             </md-card>
         </div>

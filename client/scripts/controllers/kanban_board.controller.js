@@ -58,11 +58,32 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 		if (source_list && target_list) {
 			var subject = source_list.name + " --> " + target_list.name;
 			var username = Meteor.user().profile.name;
-			var text = username + " moved task"; 
+			var text = username + " moved task";
 			Messages.insert({ subject: subject, username: username, text: text, createdAt: Date.now(), read: false });
 		}
 
 	});
+
+	$scope.editTask = function(task_id) {
+		 var parentEl = angular.element(document.body);
+		 $scope.task = $scope.getTask(task_id);
+		 console.debug("trying...");
+		 $mdDialog.show({
+			parent: parentEl,
+			templateUrl: 'client/templates/partials/taskEdit.html',
+			scope: $scope,
+			controller: function DialogController($scope, $mdDialog) {
+				$scope.closeDialog = function() {
+					$mdDialog.hide();
+				}
+			}
+
+		});
+	}
+
+	$scope.saveTask = function(task_id) {
+
+	}
 
 	function insertTask(name, list_id) {
 		Tasks.insert({
@@ -71,7 +92,7 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 			Swimlanes.update({ _id: list_id }, { $push: { tasks: task_id } });
 		});
 	}
-	
+
 	$scope.addNewList = function (ev) {
 		var confirm = $mdDialog.prompt()
 			.title('Create A New List')
