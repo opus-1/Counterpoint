@@ -50,7 +50,7 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 		}
 		if (source_list && target_list) {
 			var subject = source_list.name + " --> " + target_list.name;
-			var username = Meteor.user().username;
+			var username = Meteor.user().profile.name;
 			var text = username + " moved task"; 
 			Messages.insert({ subject: subject, username: username, text: text });
 		}

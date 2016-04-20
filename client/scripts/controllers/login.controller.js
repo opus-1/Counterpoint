@@ -1,7 +1,7 @@
 
-angular.module('counterpoint').controller('LoginCtrl', ['$scope', function ($scope) {
+angular.module('counterpoint').controller('LoginCtrl', ['$scope', '$mdToast', '$state',function ($scope, $mdToast, $state) {
 
-  $scope.login = function() {
+  $scope.login = function () {
     // mmmm
     Meteor.loginWithLDAP($scope.username, $scope.password, {
       // search by email (all other options are configured server side)
@@ -12,9 +12,24 @@ angular.module('counterpoint').controller('LoginCtrl', ['$scope', function ($sco
     }, function (err) {
       if (err) {
         console.log(err);
+        $mdToast.show(
+          $mdToast.simple()
+            .textContent(err.reason)
+            .position("top right")
+            .hideDelay(3000)
+          );
       }
       else {
-        console.log("login successfully");
+        console.log("Login successfully");
+        $scope.username = '';
+        $scope.password = '';
+        $mdToast.show(
+          $mdToast.simple()
+            .textContent("Login successfully")
+            .position("top right")
+            .hideDelay(3000)
+          );
+       $state.go('main.board');   
       }
     });
   };
