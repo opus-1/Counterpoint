@@ -10,7 +10,10 @@
             </md-button>
         </md-whiteframe>
 
-        <div dragula="'swimlanes'" data-list-id="{{list._id}}" dragula-scope="$parent" dragula-model="list.tasks">
+        <div dragula="'swimlanes'" data-list-id="{{list._id}}" dragula-scope="$parent" dragula-model="list.tasks" flex>
+            <!--<div ng-if="list.tasks.length == 0" layout>-->
+                
+            <!--</div>-->
             <md-card ng-repeat="task_id in list.tasks track by $index" class="draggable"
                      md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}"
                      md-theme-watch>

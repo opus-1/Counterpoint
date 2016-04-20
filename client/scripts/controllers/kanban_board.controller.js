@@ -41,18 +41,18 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 
 		if (source_list) {
 			Swimlanes.update({ _id: source_list._id }, { $set: { tasks: source_list.tasks } });
-			console.debug(source_list)
+			// console.debug(source_list)
 		}
 
 		if (target_list) {
 			Swimlanes.update({ _id: target_list._id }, { $set: { tasks: target_list.tasks } });
-			console.debug(target_list)
+			// console.debug(target_list)
 		}
 		if (source_list && target_list) {
 			var subject = source_list.name + " --> " + target_list.name;
 			var username = Meteor.user().profile.name;
 			var text = username + " moved task"; 
-			Messages.insert({ subject: subject, username: username, text: text });
+			Messages.insert({ subject: subject, username: username, text: text, createdAt: Date.now() });
 		}
 
 	});
