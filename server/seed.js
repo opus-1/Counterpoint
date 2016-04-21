@@ -31,7 +31,8 @@ if (Meteor.isServer) {
         {
           name: 'Improve test automation coverage',
           description: "This is a long description about this work item, yo.",
-          comments: []
+          owner: "pellswo@us.ibm.com",
+          author: "pellswo@us.ibm.com"
         }, {
           name: 'Enhancement of storage configuration (LVM)'
         }, {
@@ -58,16 +59,21 @@ if (Meteor.isServer) {
     }
 
     if (Comments.find().count() === 0) {
+      var task = Tasks.findOne({name: 'Improve test automation coverage'});
       var comments = [
         {
           text: 'I like this idea!',
-          user: 'pellswo@us.ibm.com'
+          user: 'pellswo@us.ibm.com',
+          task: task._id
+        },
+        {
+          text: 'THIS IS TERRIBLE!!!',
+          user: 'doesnotexist@example.com',
+          task: task._id
         }
       ];
       for (var i = 0; i < comments.length; i++) {
-        var cid = Comments.insert(comments[i]);
-        var task = Tasks.findOne({name: 'Improve test automation coverage'});
-        Tasks.update({ _id: task._id }, { $push: { comments: cid } });
+        Comments.insert(comments[i]);
       }
     }
 
@@ -75,7 +81,7 @@ if (Meteor.isServer) {
       var labels = [
         {
           label: 'feature'
-        }
+        },
       ];
 
       for (var i = 0; i < labels.length; i++) {

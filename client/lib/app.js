@@ -1,5 +1,6 @@
 import '/node_modules/angular-dragula/dist/dragula.css';
 import ngMaterial from 'angular-material';
+import ngSanitize from 'angular-sanitize';
 import Accounts from 'meteor/accounts-base';
 
 var angularDragula = require('angular-dragula');
@@ -8,6 +9,7 @@ var app = angular.module('counterpoint', [
   'angular-meteor',
   ngMaterial,
   'ui.router',
+  ngSanitize,
   angularDragula(angular)
 ]);
 

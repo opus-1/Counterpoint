@@ -1,4 +1,4 @@
-<md-dialog aria-label="List dialog" flex="60" ng-controller="TaskCtrl">
+<md-dialog aria-label="List dialog" flex="60">
   <form >
     <md-toolbar>
       <div class="md-toolbar-tools">
@@ -13,46 +13,85 @@
     <div class="md-dialog-content">
       <md-dialog-content>
         <div style="float: right">
-          <md-chips>
-            <md-chip ng-repeat="label in getLabels(task)">
+          {{labels}}
+          <!-- <md-chips>
+            <md-chip ng-repeat="label in labels">
               {{label}}
             </md-chip>
-          </md-chips>
+          </md-chips> -->
         </div>
-        <p>
-          {{task.description}}
-        </p>
+        <div layout="row">
+          <md-input-container ng-if="editing" flex>
+            <label>Edit Description</label>
+            <textarea ng-model="task.description">
+            </textarea>
+          </md-input-container>
+          <div ng-if="!editing" ng-bind-html="markdownToHTML(task.description)">
+            <!-- {{markdownToHTML(task.description)}} -->
+          </div>
+        </div>
         <hr />
 
         <div layout="row">
-          <div flex>assigned to blah</div>
-          <div flex>udpated at blah</div>
+          <md-list-item class="md-3-line" flex>
+            <img class="md-avatar img-circle" ng-src="http://faces.tap.ibm.com/imagesrv/{{getCreatorUser().profile.serial}}.jpg?s=115">
+            <div class="md-list-item-text" style="width: 100%">
+              <h3>Author</h3>
+              <p>{{getUserNameFromObject(getCreatorUser())}}</p>
+              <p>created at {{getDate(task.createdAt)}}</p>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-3-line" flex>
+            <img class="md-avatar img-circle" ng-src="http://faces.tap.ibm.com/imagesrv/{{getAssignedUser().profile.serial}}.jpg?s=115">
+            <div class="md-list-item-text" style="width: 100%">
+              <h3>Owner</h3>
+              <p>{{getUserNameFromObject(getAssignedUser())}}</p>
+              <p>updated at {{getDate(task.updatedAt)}}</p>
+            </div>
+          </md-list-item>
         </div>
+
+        <hr />
+
+        <div>
+          <md-button ng-click="edit()" class="md-primary" aria-label="Update">
+            <span ng-if="!editing">
+              <i class="fa fa-pencil"></i> Edit
+            </span>
+            <span ng-if="editing">
+              <i class="fa fa-save"></i> Save
+            </span>
+          </md-button>
+        </div>
+
         <hr />
 
         <md-list>
           <md-subheader class="md-no-sticky">Comments</md-subheader>
-          <md-list-item class="md-2-line" ng-repeat="comment_id in task.comments track by $index" ng-if="comment_id">
-            <img class="md-avatar img-circle" ng-src="http://faces.tap.ibm.com/imagesrv/{{getComment(comment_id).user_object.profile.serial}}.jpg?s=115">
+          <md-list-item class="md-2-line" ng-repeat="comment in comments track by $index">
+            <img class="md-avatar img-circle" ng-src="http://faces.tap.ibm.com/imagesrv/{{getUser(comment.user).profile.serial}}.jpg?s=115">
             <div class="md-list-item-text" style="width: 100%">
-              <h3>{{getUserName(getComment(comment_id).user_object)}}</h3>
-              <p>{{getComment(comment_id).text}}</p>
+              <h3>{{getUserNameFromComment(comment)}}</h3>
+              <p>{{comment.text}}</p>
             </div>
           </md-list-item>
           <md-list-item class="md-3-line">
             <img class="md-avatar img-circle" ng-src="http://faces.tap.ibm.com/imagesrv/{{me.profile.serial}}.jpg?s=115">
             <div class="md-list-item-text" style="width: 100%">
               <form name="comment_form">
-                <md-input-container style="width: 80%" flex="auto">
-                  <label>Add Comment</label>
-                  <textarea ng-model="new_comment.text">
-                  </textarea>
-                </md-input-container>
-                <button flex class="md-primary md-button md-ink-ripple" type="button"
-                  aria-label="add comment" ng-click="addComment($event)">
-                  <i class="material-icons md-12 ng-scope">add</i>
-                  <div class="md-ripple-container"></div>
-                </button>
+                <div layout="row">
+                  <md-input-container flex="80" layout="row">
+                    <label>add comment</label>
+                    <textarea ng-model="new_comment.text">
+                    </textarea>
+                  </md-input-container>
+
+                  <md-button flex class="md-primary md-button md-ink-ripple" type="button"
+                    aria-label="add comment" ng-click="addComment($event)">
+                    <i class="material-icons md-12 ng-scope">add</i>
+                    <div class="md-ripple-container"></div>
+                  </md-button>
+                </div>
               </form>
             </div>
           </md-list-item>
@@ -61,11 +100,13 @@
     </div>
 
     <md-dialog-actions>
-      <md-button ng-click="edit()" class="md-primary" aria-label="Update">
-        <i class="fa fa-pencil"></i> Edit
-      </md-button>
       <md-button ng-click="cancel()" class="md-primary" aria-label="Cancel">
-        Close
+        <span ng-if="!editing">
+          <i class="fa fa-times"></i> Close
+        </span>
+        <span ng-if="editing">
+          <i class="fa fa-times"></i> Cancel
+        </span>
       </md-button>
     </md-dialog-actions>
   </form>

@@ -47,6 +47,8 @@ launch-screen@1.0.11
 livedata@1.0.18
 localstorage@1.0.9
 logging@1.0.12
+markdown@1.0.9
+matb33:collection-hooks@0.8.1
 meteor@1.1.14
 meteor-base@1.0.4
 minifier-css@1.1.11
@@ -56,6 +58,7 @@ mobile-experience@1.0.4
 mobile-status-bar@1.0.12
 modules@0.6.1
 modules-runtime@0.6.3
+momentjs:moment@2.13.1
 mongo@1.1.7
 mongo-id@1.0.4
 npm-bcrypt@0.8.5

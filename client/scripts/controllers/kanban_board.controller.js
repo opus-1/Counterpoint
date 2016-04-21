@@ -3,8 +3,6 @@
 /* global Tasks */
 /* global Swimlanes */
 angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, dragulaService, $mdDialog, $rootScope) {
-
-	$scope.listTasks = {};
 	$scope.helpers({
 		lists: () => Swimlanes.find({}, { sort: ['order'] })
 	});
@@ -12,22 +10,6 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 	$scope.getTask = function (id) {
 		return Tasks.findOne({ _id: id });
 	};
-
-
-	$scope.getListTasks = function(list) {
-		if(!$scope.listTasks[list._id])
-		{
-			$scope.listTasks[list._id] = [];
-			angular.forEach(list.tasks, function(el){
-				$scope.listTasks[list._id].push($scope.getTask(el));
-			});
-		}
-
-		return $scope.listTasks[list._id]
-	}
-
-	for(var x in $scope.lists)
-	{ $scope.getListTasks($scope.lists[x]); }
 
 	$scope.newTaskDialog = function (ev, list_id) {
 		var confirm = $mdDialog.prompt()
@@ -61,12 +43,10 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 
 		if (source_list) {
 			Swimlanes.update({ _id: source_list._id }, { $set: { tasks: source_list.tasks } });
-			$scope.getListTasks(source_list);
 		}
 
 		if (target_list) {
 			Swimlanes.update({ _id: target_list._id }, { $set: { tasks: target_list.tasks } });
-			$scope.getListTasks(target_list);
 		}
 		if (source_list && target_list) {
 			var subject = source_list.name + " --> " + target_list.name;
@@ -81,12 +61,13 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 		 var parentEl = angular.element(document.body);
 
 		 // TODO: Make this a local scope.  But it's not working exactly.
-		 $scope.task = task;
+		 $scope.task_id = task._id;
 		 $mdDialog.show({
 			parent: parentEl,
 			preserveScope: true,
 			templateUrl: 'client/templates/partials/taskEdit.html',
 			scope: $scope,
+			controller: 'TaskCtrl',
 			clickOutsideToClose: true
 		}).then(function (answer) {
 			console.log(answer);
