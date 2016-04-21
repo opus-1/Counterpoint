@@ -12,14 +12,6 @@
 
     <div class="md-dialog-content">
       <md-dialog-content>
-        <div style="float: right">
-          {{labels}}
-          <!-- <md-chips>
-            <md-chip ng-repeat="label in labels">
-              {{label}}
-            </md-chip>
-          </md-chips> -->
-        </div>
         <div layout="row">
           <md-input-container ng-if="editing" flex>
             <label>Edit Description</label>
@@ -30,30 +22,8 @@
             <!-- {{markdownToHTML(task.description)}} -->
           </div>
         </div>
-        <hr />
 
         <div layout="row">
-          <md-list-item class="md-3-line" flex>
-            <img class="md-avatar img-circle" ng-src="http://faces.tap.ibm.com/imagesrv/{{getCreatorUser().profile.serial}}.jpg?s=115">
-            <div class="md-list-item-text" style="width: 100%">
-              <h3>Author</h3>
-              <p>{{getUserNameFromObject(getCreatorUser())}}</p>
-              <p>created at {{getDate(task.createdAt)}}</p>
-            </div>
-          </md-list-item>
-          <md-list-item class="md-3-line" flex>
-            <img class="md-avatar img-circle" ng-src="http://faces.tap.ibm.com/imagesrv/{{getAssignedUser().profile.serial}}.jpg?s=115">
-            <div class="md-list-item-text" style="width: 100%">
-              <h3>Owner</h3>
-              <p>{{getUserNameFromObject(getAssignedUser())}}</p>
-              <p>updated at {{getDate(task.updatedAt)}}</p>
-            </div>
-          </md-list-item>
-        </div>
-
-        <hr />
-
-        <div>
           <md-button ng-click="edit()" class="md-primary" aria-label="Update">
             <span ng-if="!editing">
               <i class="fa fa-pencil"></i> Edit
@@ -62,6 +32,34 @@
               <i class="fa fa-save"></i> Save
             </span>
           </md-button>
+          <span flex></span>
+          <md-chips flex="50" layout="right center" ng-if="task.labels"
+            md-enable-chip-edit
+            ng-model="task.labels"
+            md-on-add="saveLabels()"
+            md-on-remove="saveLabels()"
+            placeholder="add tag">
+          </md-chips>
+        </div>
+        <hr />
+
+        <div layout="row">
+          <md-list-item class="md-3-line" flex>
+            <img class="md-avatar img-circle" ng-src="http://faces.tap.ibm.com/imagesrv/{{task.getAuthor().profile.serial}}.jpg?s=115">
+            <div class="md-list-item-text" style="width: 100%">
+              <h3>Author</h3>
+              <p>{{task.getAuthor().getName()}}</p>
+              <p>created at {{getDate(task.createdAt)}}</p>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-3-line" flex>
+            <img class="md-avatar img-circle" ng-src="http://faces.tap.ibm.com/imagesrv/{{task.getOwner().profile.serial}}.jpg?s=115">
+            <div class="md-list-item-text" style="width: 100%">
+              <h3>Owner</h3>
+              <p>{{task.getOwner().getName()}}</p>
+              <p>updated at {{getDate(task.updatedAt)}}</p>
+            </div>
+          </md-list-item>
         </div>
 
         <hr />
@@ -69,11 +67,12 @@
         <md-list>
           <md-subheader class="md-no-sticky">Comments</md-subheader>
           <md-list-item class="md-2-line" ng-repeat="comment in comments track by $index">
-            <img class="md-avatar img-circle" ng-src="http://faces.tap.ibm.com/imagesrv/{{getUser(comment.user).profile.serial}}.jpg?s=115">
+            <img class="md-avatar img-circle" ng-src="http://faces.tap.ibm.com/imagesrv/{{comment.getUser().profile.serial}}.jpg?s=115">
             <div class="md-list-item-text" style="width: 100%">
-              <h3>{{getUserNameFromComment(comment)}}</h3>
-              <p>{{comment.text}}</p>
+              <h3>{{comment.getUser().getName()}}</h3>
+              <div ng-bind-html="markdownToHTML(comment.text)"></div>
             </div>
+            <md-divider></md-divider>
           </md-list-item>
           <md-list-item class="md-3-line">
             <img class="md-avatar img-circle" ng-src="http://faces.tap.ibm.com/imagesrv/{{me.profile.serial}}.jpg?s=115">

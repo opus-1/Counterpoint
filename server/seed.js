@@ -32,7 +32,8 @@ if (Meteor.isServer) {
           name: 'Improve test automation coverage',
           description: "This is a long description about this work item, yo.",
           owner: "pellswo@us.ibm.com",
-          author: "pellswo@us.ibm.com"
+          author: "pellswo@us.ibm.com",
+          labels: ["feature", "1.4"]
         }, {
           name: 'Enhancement of storage configuration (LVM)'
         }, {
@@ -74,20 +75,6 @@ if (Meteor.isServer) {
       ];
       for (var i = 0; i < comments.length; i++) {
         Comments.insert(comments[i]);
-      }
-    }
-
-    if (Labels.find().count() === 0) {
-      var labels = [
-        {
-          label: 'feature'
-        },
-      ];
-
-      for (var i = 0; i < labels.length; i++) {
-        var lid = Labels.insert(labels[i]);
-        var task = Tasks.findOne({name: 'Improve test automation coverage'});
-        Tasks.update({ _id: task._id }, { $push: { labels: lid } });
       }
     }
 
