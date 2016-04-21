@@ -1,5 +1,9 @@
 angular.module('counterpoint').controller('MainCtrl', ['$scope', '$mdSidenav', '$state', '$rootScope',
   function ($scope, $mdSidenav, $state, $rootScope) {
+    if(Meteor.user() == 'undefined' || Meteor.user() == null){
+      $state.go("login");
+    }
+    
     var menuItems = [
       {
         name: 'Dashboard',
