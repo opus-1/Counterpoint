@@ -10,14 +10,12 @@
             </md-button>
         </md-whiteframe>
 
-        <div dragula="'swimlanes'" data-list-id="{{list._id}}" dragula-scope="$parent" dragula-model="list.tasks" flex>
+        <div class="dragula-container" dragula="'swimlanes'" data-list-id="{{list._id}}" dragula-scope="$parent" dragula-model="list.tasks" flex>
             <div ng-if="list.tasks.length == 0" layout="column" layout-align="center center">
                 <span>Empty: click on (+) to add task to this list.</span>
                 <span>Or you can move task from other list</span>
             </div>
-            <task-card
-              ng-repeat="task in list.tasks | tasksIdsFilter:search track by $index"
-              class="draggable" taskid="task">
+            <task-card ng-repeat="task in list.tasks | tasksIdsFilter:search" taskid="task">
             </task-card>
         </div>
     </div>

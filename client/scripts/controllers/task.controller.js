@@ -1,14 +1,20 @@
-angular.module('counterpoint').controller('TaskCtrl', ['$scope', '$mdDialog',
-  function ($scope, $mdDialog) {
+angular.module('counterpoint').controller('TaskCtrl', ['$scope', '$mdDialog', '$reactive',
+  function ($scope, $mdDialog, $reactive) {
+
+    // Not 100% sure this is needed.  But it works...
+    $reactive(this).attach($scope);
+    this.taskid = $scope.task_id;
 
     $scope.me = Meteor.user();
-    console.debug($scope.task_id);
     $scope.helpers({
-  		task: () => Tasks.findOne({_id: $scope.task_id}),
-      comments: () => Comments.find({task: $scope.task_id})
+  		task: () => Tasks.findOne({_id: this.getReactively('taskid')}),
+      comments: () => Comments.find({task: this.getReactively('taskid')}),
   	});
 
-    console.debug($scope.task);
+    // Not 100% sure this is needed.  But it works...
+    $scope.$watch('task_id', function() {
+      this.taskid = $scope.task_id;
+    })
 
     $scope.editing = false;
 
