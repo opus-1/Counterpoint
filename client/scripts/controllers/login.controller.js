@@ -29,7 +29,7 @@ angular.module('counterpoint').controller('LoginCtrl', ['$scope', '$mdToast', '$
             .position("top right")
             .hideDelay(3000)
           );
-       $state.go('main.board');   
+       $state.go('main.dashboard');   
       }
     });
   };

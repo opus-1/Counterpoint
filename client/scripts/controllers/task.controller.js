@@ -2,16 +2,20 @@ angular.module('counterpoint').controller('TaskCtrl', ['$scope', '$mdDialog',
   function ($scope, $mdDialog) {
 
     $scope.me = Meteor.user();
-    console.debug($scope.me);
+    console.debug($scope.task_id);
     $scope.helpers({
   		task: () => Tasks.findOne({_id: $scope.task_id}),
       comments: () => Comments.find({task: $scope.task_id})
   	});
 
+    console.debug($scope.task);
+
     $scope.editing = false;
 
     var converter = new Showdown.converter();
     $scope.markdownToHTML = function(stuff) {
+      if(!stuff || stuff == '')
+      { return ''; }
       return converter.makeHtml(stuff);
     }
 
@@ -61,4 +65,21 @@ angular.module('counterpoint').controller('TaskCtrl', ['$scope', '$mdDialog',
     $scope.answer = function (answer) {
       $mdDialog.hide(answer);
     };
+
+    // this opens the editing modal.
+    $scope.editTask = function() {
+  		 var parentEl = angular.element(document.body);
+  		 $mdDialog.show({
+  			parent: parentEl,
+  			preserveScope: true,
+  			templateUrl: 'client/templates/partials/taskEdit.html',
+  			scope: $scope,
+  			controller: 'TaskCtrl',
+  			clickOutsideToClose: true
+  		}).then(function (answer) {
+  			console.log(answer);
+  		}, function () {
+  			console.log("Dialog closed");
+  		});;
+  	};
   }]);

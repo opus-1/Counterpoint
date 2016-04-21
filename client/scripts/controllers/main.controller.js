@@ -3,19 +3,28 @@ angular.module('counterpoint').controller('MainCtrl', ['$scope', '$mdSidenav', '
     if(Meteor.user() == 'undefined' || Meteor.user() == null){
       $state.go("login");
     }
-    
+
     var menuItems = [
       {
         name: 'Dashboard',
         icon: 'dashboard',
-        sref: '.board'
+        sref: '.dashboard'
       },
       {
-        name: 'Profile',
-        icon: 'person',
-        sref: '.profile'
+        name: 'Kanban',
+        icon: 'view_list',
+        sref: '.board'
       }
     ];
+
+    if(Meteor.user().profile.admin)
+    {
+      menuItems.push({
+        name: 'Admin',
+        icon: 'settings',
+        sref: '.admin'
+      })
+    }
 
     $scope.getUserName = function(user) {
       if(!user || !user.profile) { return ''; }
@@ -33,7 +42,7 @@ angular.module('counterpoint').controller('MainCtrl', ['$scope', '$mdSidenav', '
     }
 
     $scope.helpers({
-      tasks: () => Tasks.find({}),
+      // tasks: () => Tasks.find({}),
       menuItems: () => menuItems
     });
 

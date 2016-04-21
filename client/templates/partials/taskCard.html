@@ -1,0 +1,20 @@
+<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+  <md-card-title>
+    <md-card-title-text>
+        <span class="md-content">{{ task.name }}</span>
+    </md-card-title-text>
+  </md-card-title>
+  <md-card-content>
+    <md-chips>
+      <!-- TODO: This doesn't work, but readonly md-chips also has
+      issues because it requires an ng-model thing. -->
+      <!-- <md-chip ng-repeat="label in getTask(task).labels">
+        {{label}}
+      </md-chip> -->
+    </md-chips>
+  </md-card-content>
+  <md-card-actions layout="row" layout-align="end center">
+      <!-- <md-button>Archive</md-button> -->
+      <md-button ng-click="editTask()">View</md-button>
+  </md-card-actions>
+</md-card>

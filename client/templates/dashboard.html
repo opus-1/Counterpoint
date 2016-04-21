@@ -1,0 +1,27 @@
+<md-whiteframe class="md-whiteframe-1dp">
+  <md-toolbar class="md-accent">
+    <div class="md-toolbar-tools">
+      <h3>Your Tasks</h3>
+    </div>
+  </md-toolbar>
+  <md-content>
+    <div layout="row" layout-wrap>
+      <task-card flex="30" ng-repeat="task in my_tasks" taskid="task._id">
+      </task-card>
+    </div>
+  </md-content>
+</md-whiteframe>
+
+<md-whiteframe class="md-whiteframe-1dp">
+  <md-toolbar class="md-accent">
+    <div class="md-toolbar-tools">
+      <h3>Your Profile</h3>
+    </div>
+  </md-toolbar>
+  <md-content>
+    <div>
+      <user-profile user="me" layout="row" layout-wrap>
+      </user-profile>
+    </div>
+  </md-content>
+</md-whiteframe>

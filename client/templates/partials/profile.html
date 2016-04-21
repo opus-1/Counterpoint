@@ -1,0 +1,28 @@
+<div style="width: 100%" class="md-inline-form"> <!-- why do we need the width thing here? -->
+  <md-content layout-padding layout-align="left center">
+    <form name="userForm">
+      <div layout="column">
+        <md-input-container>
+          <label>Name</label>
+          <input ng-model="user.profile.name" ng-disabled="!canEdit()" ng-readonly="!canEdit()">
+        </md-input-container>
+
+        <md-switch
+          ng-model="user.profile.admin"
+          ng-readonly="!user.profile.admin"
+          aria-label="Is Admin">
+          Administrator
+        </md-switch>
+      </div>
+    </form>
+  </md-content>
+
+  <div ng-if="canEdit()">
+    <md-button ng-click="save(userForm)" ng-show="userForm.$dirty" class="md-primary" aria-label="Edit">
+      <i class="fa fa-save"></i> Save
+    </md-button>
+    <md-button ng-click="cancelEdit(userForm)" class="md-warning" aria-label="Cancel" ng-show="userForm.$dirty">
+      <i class="fa fa-times"></i> Cancel
+    </md-button>
+  </div>
+</div>

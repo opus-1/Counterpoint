@@ -26,6 +26,16 @@ app.config(function ($urlRouterProvider, $stateProvider, $locationProvider, $mdT
     controller: 'MainCtrl',
     abstract: true
   })
+  .state('main.dashboard', {
+    url: '/dashboard',
+    templateUrl: 'client/templates/dashboard.html',
+    controller: 'DashboardCtrl'
+  })
+  .state('main.admin', {
+    url: '/admin',
+    templateUrl: 'client/templates/admin.html',
+    controller: 'AdminCtrl'
+  })
   .state('main.board', {
     url: '/board',
     templateUrl: 'client/templates/kanban_board.html',
@@ -37,7 +47,7 @@ app.config(function ($urlRouterProvider, $stateProvider, $locationProvider, $mdT
     controller: 'LoginCtrl'
   });
 
-  $urlRouterProvider.otherwise("/board");
+  $urlRouterProvider.otherwise("/dashboard");
 
   $mdIconProvider.icon('user', 'images/user.svg', 64);
 

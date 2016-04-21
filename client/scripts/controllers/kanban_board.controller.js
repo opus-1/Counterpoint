@@ -50,35 +50,12 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 		}
 		if (source_list && target_list) {
 			var subject = source_list.name + " --> " + target_list.name;
-			var username = Meteor.user().profile.name;
+			var username = Meteor.user().getName();
 			var text = username + " moved task";
 			Messages.insert({ subject: subject, username: username, text: text, createdAt: Date.now(), read: false });
 		}
 
 	});
-
-	$scope.editTask = function(task) {
-		 var parentEl = angular.element(document.body);
-
-		 // TODO: Make this a local scope.  But it's not working exactly.
-		 $scope.task_id = task._id;
-		 $mdDialog.show({
-			parent: parentEl,
-			preserveScope: true,
-			templateUrl: 'client/templates/partials/taskEdit.html',
-			scope: $scope,
-			controller: 'TaskCtrl',
-			clickOutsideToClose: true
-		}).then(function (answer) {
-			console.log(answer);
-		}, function () {
-			console.log("Dialog closed");
-		});;
-	};
-
-	$scope.saveTask = function (task_id) {
-
-	};
 
 	function insertTask(name, list_id) {
 		Tasks.insert({
@@ -100,7 +77,7 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 		$mdDialog.show(confirm).then(function (result) {
 			var order = Swimlanes.find({}).count();
 			Swimlanes.insert({ name: result, order: order + 1 });
-			var username = Meteor.user().profile.name;
+			var username = Meteor.user().getName();
 			var text = "by " + username;
 			Messages.insert({ subject: "New list added", username: text, createdAt: Date.now(), read: false })
 		}, function () {

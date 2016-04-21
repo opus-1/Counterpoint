@@ -1,0 +1,14 @@
+<md-whiteframe class="md-whiteframe-1dp">
+  <md-toolbar class="md-accent">
+    <div class="md-toolbar-tools">
+      <h3>User Profiles</h3>
+    </div>
+  </md-toolbar>
+  <md-content>
+    <div ng-repeat="user in users">
+      <user-profile user="user" layout="row" layout-wrap>
+      </user-profile>
+      <md-divider></md-divider>
+    </div>
+  </md-content>
+</md-whiteframe>

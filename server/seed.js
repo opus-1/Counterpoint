@@ -1,6 +1,21 @@
 if (Meteor.isServer) {
   Meteor.startup(function() {
 
+    if(Meteor.users.find({username: "admin"}).count() === 0)
+    {
+      var admin_user = {
+        username: "admin",
+        emails: ["adminuser@us.ibm.com"],
+        profile: {
+          admin: true,
+          name: "Builtin Admin"
+        }
+      };
+
+      var admin_id = Meteor.users.insert(admin_user);
+      Accounts.setPassword(admin_id, 'changeme');
+    }
+
     if (Swimlanes.find().count() === 0) {
       var swimlanes = [
         {
