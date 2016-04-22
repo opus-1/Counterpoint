@@ -1,0 +1,14 @@
+<span>
+  <span ng-if="task.state == 'idle' || !task.state" class="task-idle">
+    <i class="fa fa-clock-o"></i>
+    <md-tooltip>task is not being worked on</md-tooltip>
+  </span>
+  <span ng-if="task.state == 'working'" class="task-working">
+    <i class="fa fa-gear"></i>
+    <md-tooltip>task is being worked on</md-tooltip>
+  </span>
+  <span ng-if="task.state == 'done'" class="task-complete">
+    <i class="fa fa-check"></i>
+    <md-tooltip>task has been completed</md-tooltip>
+  </span>
+</span>
