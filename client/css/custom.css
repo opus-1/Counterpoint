@@ -1,0 +1,39 @@
+md-chips.small md-chip {
+  font-size: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  line-height: 16px;
+  height: 16px;
+}
+
+.chip.defect {
+  /*background-color: red;*/
+}
+
+.chip.feature {
+  /*background-color: darkgreen;*/
+}
+
+.task-complete {
+    color: darkgreen;
+}
+
+.task-idle {
+
+}
+
+.task-working {
+
+}
+.dragula-container task-card {
+  cursor: move;
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+}
+
+.gu-unselectable {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}

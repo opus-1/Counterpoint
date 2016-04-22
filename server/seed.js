@@ -48,11 +48,14 @@ if (Meteor.isServer) {
           description: "This is a long description about this work item, yo.",
           owner: "pellswo@us.ibm.com",
           author: "pellswo@us.ibm.com",
-          labels: ["feature", "1.4"]
+          labels: ["feature", "1.4"],
+          state: "idle",
         }, {
-          name: 'Enhancement of storage configuration (LVM)'
+          name: 'Enhancement of storage configuration (LVM)',
+          state: "working"
         }, {
-          name: 'Show real time resource utilization of hypervisors'
+          name: 'Show real time resource utilization of hypervisors',
+          state: "done"
         }, {
           name: 'Develop Change management performer'
         }, {

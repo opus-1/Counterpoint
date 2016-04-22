@@ -8,8 +8,11 @@ angular.module('counterpoint').controller('TaskCtrl', ['$scope', '$mdDialog', '$
     $scope.me = Meteor.user();
     $scope.helpers({
   		task: () => Tasks.findOne({_id: this.getReactively('taskid')}),
-      comments: () => Comments.find({task: this.getReactively('taskid')}),
+      comments: () => Comments.find({task: this.getReactively('taskid')})
   	});
+
+    if(!$scope.task.labels)
+    { $scope.task.labels = []; }
 
     // Not 100% sure this is needed.  But it works...
     $scope.$watch('task_id', function() {
@@ -17,6 +20,35 @@ angular.module('counterpoint').controller('TaskCtrl', ['$scope', '$mdDialog', '$
     })
 
     $scope.editing = false;
+
+    var setState = function(state) {
+      Tasks.update({_id: $scope.task_id}, { $set: { state: state } })
+    }
+
+    $scope.getLabelClass = function(chip) {
+      if(chip == "defect")
+      { return "fa fa-bug"; }
+      else if(chip == "feature")
+      { return "fa fa-plus"; }
+      else if(/\d+\.\d+|release.*/.test(chip))
+      { return "fa fa-map-signs"; }
+    }
+
+    $scope.startWorking = function() {
+      setState("working");
+    };
+
+    $scope.stopWorking = function() {
+      setState("idle");
+    };
+
+    $scope.reopen = function() {
+      setState("idle");
+    };
+
+    $scope.completeWork = function() {
+      setState("done");
+    };
 
     var converter = new Showdown.converter();
     $scope.markdownToHTML = function(stuff) {
@@ -55,6 +87,20 @@ angular.module('counterpoint').controller('TaskCtrl', ['$scope', '$mdDialog', '$
       Comments.insert($scope.new_comment);
       $scope.new_comment = {};
     };
+
+    $scope.possible_owners = [];
+    $scope.loadUsers = function() {
+      $scope.possible_owners = Meteor.users.find({}).fetch();
+    }
+
+    $scope.changeOwner = function() {
+      Tasks.update({_id: $scope.task_id}, { $set: { owner: $scope.task.owner } })
+      $scope.editOwner = false;
+    }
+
+    $scope.toggleEditOwner = function() {
+      $scope.editOwner = true;
+    }
 
     $scope.getDate = function(date) {
       return moment(date).calendar();

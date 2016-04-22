@@ -23,7 +23,7 @@
           </div>
         </div>
 
-        <div layout="row">
+        <div layout="row" layout-wrap>
           <md-button ng-click="edit()" class="md-primary" aria-label="Update">
             <span ng-if="!editing">
               <i class="fa fa-pencil"></i> Edit
@@ -32,13 +32,42 @@
               <i class="fa fa-save"></i> Save
             </span>
           </md-button>
+          <md-button
+            class="md-primary"
+            ng-click="startWorking()"
+            ng-if="task.state == 'idle'">
+            <i class="fa fa-play"></i> Start Working
+          </md-button>
+          <md-button
+            ng-click="stopWorking()"
+            ng-if="task.state == 'working'">
+            <i class="fa fa-stop"></i> Stop Working
+          </md-button>
+          <md-button
+            class="md-warn"
+            ng-click="completeWork()"
+            ng-if="task.state == 'working'">
+            <i class="fa fa-check"></i> Complete Work
+          </md-button>
+          <md-button
+            class="md-warn"
+            ng-click="reopen()"
+            ng-if="task.state == 'done'">
+            <i class="fa fa-recycle"></i> Re-open
+          </md-button>
           <span flex></span>
-          <md-chips flex="50" layout="right center" ng-if="task.labels"
+        </div>
+        <div layout="row" layout-wrap>
+          <md-chips flex="100" layout="right center" ng-if="task.labels"
             md-enable-chip-edit
             ng-model="task.labels"
             md-on-add="saveLabels()"
             md-on-remove="saveLabels()"
             placeholder="add tag">
+            <md-chip-template>
+              <i class="{{getLabelClass($chip)}}"></i>
+              <span>{{$chip}}</span>
+            </md-chip-template>
           </md-chips>
         </div>
         <hr />
@@ -49,27 +78,52 @@
             <div class="md-list-item-text" style="width: 100%">
               <h3>Author</h3>
               <p>{{task.getAuthor().getName()}}</p>
-              <p>created at {{getDate(task.createdAt)}}</p>
+              <p>
+                Created {{getDate(task.createdAt).toLowerCase()}}
+              </p>
             </div>
           </md-list-item>
           <md-list-item class="md-3-line" flex>
-            <img class="md-avatar img-circle" ng-src="http://faces.tap.ibm.com/imagesrv/{{task.getOwner().profile.serial}}.jpg?s=115">
+            <img
+              ng-if="task.getOwner().profile.serial"
+              class="md-avatar img-circle"
+              ng-src="http://faces.tap.ibm.com/imagesrv/{{task.getOwner().profile.serial}}.jpg?s=115">
             <div class="md-list-item-text" style="width: 100%">
-              <h3>Owner</h3>
-              <p>{{task.getOwner().getName()}}</p>
-              <p>updated at {{getDate(task.updatedAt)}}</p>
+              <div ng-if="!editOwner">
+                <h3>Owner</h3>
+                <p>
+                  {{task.getOwner().getName() || "Unassigned" }}
+                </p>
+                <p>
+                  Updated {{getDate(task.updatedAt).toLowerCase()}}
+                </p>
+              </div>
+              <div ng-if="editOwner">
+                <md-select ng-model="task.owner" placeholder="assign to a new user"
+                  md-on-open="loadUsers()" md-on-close="changeOwner()" style="min-width: 200px;">
+                  <md-option ng-value="user.getValidId()" ng-repeat="user in possible_owners">
+                    {{user.getName()}}
+                  </md-option>
+                </md-select>
+              </div>
             </div>
+            <md-button md-ink-ripple class="md-secondary md-icon-button"
+              ng-if="!editOwner"
+              ng-click="toggleEditOwner()" aria-label="re-assign">
+              <md-icon class="material-icons md-12">create</md-icon>
+              <div class="md-ripple-container"></div>
+            </md-button>
           </md-list-item>
         </div>
 
         <hr />
 
-        <md-list>
+        <md-list class="md-dense">
           <md-subheader class="md-no-sticky">Comments</md-subheader>
-          <md-list-item class="md-2-line" ng-repeat="comment in comments track by $index">
+          <md-list-item class="md-2-line" ng-repeat="comment in comments">
             <img class="md-avatar img-circle" ng-src="http://faces.tap.ibm.com/imagesrv/{{comment.getUser().profile.serial}}.jpg?s=115">
             <div class="md-list-item-text" style="width: 100%">
-              <h3>{{comment.getUser().getName()}}</h3>
+              <h3>{{comment.getUser().getName()}}, {{getDate(comment.updatedAt).toLowerCase()}}</h3>
               <div ng-bind-html="markdownToHTML(comment.text)"></div>
             </div>
             <md-divider></md-divider>
@@ -87,7 +141,7 @@
 
                   <md-button flex class="md-primary md-button md-ink-ripple" type="button"
                     aria-label="add comment" ng-click="addComment($event)">
-                    <i class="material-icons md-12 ng-scope">add</i>
+                    <i class="material-icons md-12 ng-scope">add</i> comment
                     <div class="md-ripple-container"></div>
                   </md-button>
                 </div>
