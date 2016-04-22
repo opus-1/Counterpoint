@@ -25,6 +25,11 @@ md-chips.small md-chip {
 .task-working {
 
 }
+
+task-card.gu-transit md-card {
+  opacity: 0.4;
+}
+
 .dragula-container task-card {
   cursor: move;
   cursor: grab;

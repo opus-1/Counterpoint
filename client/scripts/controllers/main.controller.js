@@ -41,6 +41,18 @@ angular.module('counterpoint').controller('MainCtrl', ['$scope', '$mdSidenav', '
       $mdSidenav('left').toggle();
     }
 
+    $scope.override_side_nav = false;
+    $rootScope.$on('$stateChangeStart',
+      function(event, toState, toParams, fromState, fromParams) {
+        if(/main.board/.test(toState.name))
+        {
+          $scope.override_side_nav = true;
+          $mdSidenav('left').close();
+        }
+        else
+        { $scope.override_side_nav = false; }
+    });
+
     $scope.helpers({
       // tasks: () => Tasks.find({}),
       menuItems: () => menuItems

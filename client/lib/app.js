@@ -99,7 +99,12 @@ app.filter('tasksIdsFilter', function() {
     var re = new RegExp(condition, "i")
     angular.forEach(task_ids, function(task_id) {
       var t = Tasks.findOne({_id: task_id});
-      if(re.test(t.name)){
+      var users = [t.getOwner(), t.getAuthor()];
+      var p = [t.name].concat(t.labels)
+      for(var i in users)
+      { if(users[i]) { p = p.concat([users[i].getName(), users[i].getPotentialIds()]); }}
+      // console.debug(p);
+      if(re.test(p)){
         filtered.push(task_id);
       }
     });

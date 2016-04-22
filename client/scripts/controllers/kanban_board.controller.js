@@ -2,14 +2,93 @@
 /* global Messages */
 /* global Tasks */
 /* global Swimlanes */
-angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, dragulaService, $mdDialog, $rootScope) {
+angular.module('counterpoint').controller('KanbanBoardCtrl',
+	function ($scope, dragulaService, $mdDialog, $rootScope) {
 	$scope.helpers({
 		lists: () => Swimlanes.find({}, { sort: ['order'] })
 	});
 
+	$scope.$emit('close-left-menu');
+
 	$scope.getTask = function (id) {
 		return Tasks.findOne({ _id: id });
 	};
+
+	$scope.dragging = false;
+	$scope.scroll = false;
+	document.body.addEventListener('mousemove', function($event) {
+		$scope.mouseY = $event.screenY;
+
+		if(!$scope.dragging) {
+			$scope.scroll = false;
+		}
+		if($scope.dragging && !$scope.scroll) {
+			$scope.scroll = true;
+			scroll();
+			// var startLocation = $(".page-content")[0].scrollTop;
+			// var mousePosition = $event.screenY;
+			// var windowHeight = window.innerHeight;
+			// var elementHeight = $(".page-content")[0].scrollHeight;
+			// var endLocation = startLocation;
+			// if(mousePosition > (windowHeight / 3 * 2))
+			// {
+			// 	endLocation += startLocation;
+			// 	if(endLocation > elementHeight)
+			// 	{ endLocation = elementHeight; }
+			// }
+			//
+			// if(mousePosition < (windowHeight / 3))
+			// {
+			// 	endLocation -= 10;
+			// 	if(endLocation < 0)
+			// 	{ endLocation = 0; }
+			// }
+			//
+			// console.debug("Start/End: " + startLocation + "/" + endLocation)
+      // // var increments = distance/(duration/16);
+			//
+			// $scope.scroll = true;
+			// $(".page-content")[0].scrollTop = endLocation;
+			// // var coords ={ y: $event.screenY, x: $event.screenX };
+		}
+	});
+
+	var scroll = function() {
+		var startLocation = $(".page-content")[0].scrollTop;
+		var mousePosition = $scope.mouseY;
+		var windowHeight = window.innerHeight;
+		var elementHeight = $(".page-content")[0].scrollHeight;
+		var endLocation = startLocation;
+		if(mousePosition > (windowHeight / 3 * 2))
+		{
+			var amount = getSpeed(windowHeight, mousePosition);
+			endLocation += amount;
+			if(endLocation > elementHeight)
+			{ endLocation = elementHeight; }
+		}
+
+		if(mousePosition < (windowHeight / 3))
+		{
+			var amount = getSpeed(windowHeight, mousePosition);
+			endLocation -= amount;
+			if(endLocation < 0)
+			{ endLocation = 0; }
+		}
+
+		$(".page-content")[0].scrollTop = endLocation;
+
+		if($scope.scroll == true)
+		{
+			setTimeout(function() { scroll(); }, 30)
+		}
+	}
+
+	var getSpeed = function(heightY, mouseY) {
+		var amount = 10;
+		var fromMiddle = Math.abs((heightY / 2) - mouseY);
+		if(fromMiddle / 10 > amount) { amount = fromMiddle / 10; }
+		return amount;
+	}
 
 	$scope.newTaskDialog = function (ev, list_id) {
 		var confirm = $mdDialog.prompt()
@@ -25,6 +104,14 @@ angular.module('counterpoint').controller('KanbanBoardCtrl', function ($scope, d
 		}, function () {
 		});
 	};
+
+	$scope.$on('swimlanes.drag', function() {
+		$scope.dragging = true;
+	})
+
+	$scope.$on('swimlanes.dragend', function() {
+		$scope.dragging = false;
+	})
 
 	$scope.$on('swimlanes.drop-model', function (e, el, target, source) {
 		var source_list = null;
