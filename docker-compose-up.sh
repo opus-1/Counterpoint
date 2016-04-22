@@ -11,7 +11,7 @@ fi
 export COUNTERPOINT_PORT=$1
 if [ -z "$COUNTERPOINT_PORT" ]
 then
-  read -p "Please enter the external port: " port
+  read -p "Please enter the external port: " COUNTERPOINT_PORT
 fi
 if [ -z "$COUNTERPOINT_PORT"]
 then
