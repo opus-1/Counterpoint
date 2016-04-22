@@ -1,4 +1,4 @@
-import '/node_modules/angular-dragula/dist/dragula.css';
+import 'angular-dragula/dist/dragula.css';
 import ngMaterial from 'angular-material';
 import ngSanitize from 'angular-sanitize';
 import Accounts from 'meteor/accounts-base';

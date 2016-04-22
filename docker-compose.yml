@@ -8,7 +8,7 @@ counterpoint:
    - mongo
   environment:
    - MONGO_URL=mongodb://mongo/counterpoint
-   - ROOT_URL="http://dmsbuilds.svl.ibm.com"
+   - ROOT_URL=http://dmsbuilds.svl.ibm.com
    - MAIL_URL=smtp://na.relay.ibm.com:25
 
 mongo:
