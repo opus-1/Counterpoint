@@ -5,11 +5,11 @@ Meteor.startup(function () {
 	LDAP_DEFAULTS.base = "ou=bluepages,o=ibm.com";
 	LDAP_DEFAULTS.searchResultsProfileMap = [
 		{
-	  	resultKey: 'cn',
-	  	profileProperty: 'name'
+			resultKey: 'cn',
+			profileProperty: 'name'
 		}, {
-		  resultKey: 'serialNumber',
-		  profileProperty: 'serial'
+			resultKey: 'serialNumber',
+			profileProperty: 'serial'
 		}
 	];
 
