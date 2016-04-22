@@ -77,7 +77,7 @@
             <img class="md-avatar img-circle" ng-src="http://faces.tap.ibm.com/imagesrv/{{task.getAuthor().profile.serial}}.jpg?s=115">
             <div class="md-list-item-text" style="width: 100%">
               <h3>Author</h3>
-              <p>{{task.getAuthor().getName()}}</p>
+              <p>{{task.getAuthor().getName() || "Unknown"}}</p>
               <p>
                 Created {{getDate(task.createdAt).toLowerCase()}}
               </p>
@@ -119,12 +119,16 @@
         <hr />
 
         <md-list class="md-dense">
-          <md-subheader class="md-no-sticky">Comments</md-subheader>
-          <md-list-item class="md-2-line" ng-repeat="comment in comments">
-            <img class="md-avatar img-circle" ng-src="http://faces.tap.ibm.com/imagesrv/{{comment.getUser().profile.serial}}.jpg?s=115">
+          <md-subheader class="md-no-sticky">Updates</md-subheader>
+          <md-list-item class="md-2-line" ng-repeat="update in updates | uniqueUpdateIds track by update._id">
+            <span style="display: none">{{update._id}}</span>
+            <img class="md-avatar img-circle" ng-src="http://faces.tap.ibm.com/imagesrv/{{update.getUser().profile.serial}}.jpg?s=115">
             <div class="md-list-item-text" style="width: 100%">
-              <h3>{{comment.getUser().getName()}}, {{getDate(comment.updatedAt).toLowerCase()}}</h3>
-              <div ng-bind-html="markdownToHTML(comment.text)"></div>
+              <h3>{{update.getUser().getName() || "Unknown"}}, {{getDate(update.updatedAt).toLowerCase()}}</h3>
+              <div ng-if="update.type == 'comment'" ng-bind-html="markdownToHTML(update.text)"></div>
+              <div ng-if="update.type == 'owner-change'">Changed owner from {{getUserId(update.data.previous)}} to {{getUserId(update.data.new)}}</div>
+              <div ng-if="update.type == 'state-change'">Changed state from {{update.data.previous}} to {{update.data.new}}</div>
+              <div ng-if="update.type == 'list-change'">Changed list from {{getListName(update.data.previous)}} to {{getListName(update.data.new)}}</div>
             </div>
             <md-divider></md-divider>
           </md-list-item>
@@ -141,7 +145,7 @@
 
                   <md-button flex class="md-primary md-button md-ink-ripple" type="button"
                     aria-label="add comment" ng-click="addComment($event)">
-                    <i class="material-icons md-12 ng-scope">add</i> comment
+                    <i class="material-icons md-12 ng-scope">add</i>
                     <div class="md-ripple-container"></div>
                   </md-button>
                 </div>

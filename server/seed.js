@@ -77,22 +77,24 @@ if (Meteor.isServer) {
       }
     }
 
-    if (Comments.find().count() === 0) {
+    if (Updates.find().count() === 0) {
       var task = Tasks.findOne({name: 'Improve test automation coverage'});
-      var comments = [
+      var updates = [
         {
+          type: "comment",
           text: 'I like this idea!',
           user: 'pellswo@us.ibm.com',
           task: task._id
         },
         {
+          type: "comment",
           text: 'THIS IS TERRIBLE!!!',
           user: 'doesnotexist@example.com',
           task: task._id
         }
       ];
-      for (var i = 0; i < comments.length; i++) {
-        Comments.insert(comments[i]);
+      for (var i = 0; i < updates.length; i++) {
+        Updates.insert(updates[i]);
       }
     }
 

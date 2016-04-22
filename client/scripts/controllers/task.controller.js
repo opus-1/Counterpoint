@@ -8,7 +8,7 @@ angular.module('counterpoint').controller('TaskCtrl', ['$scope', '$mdDialog', '$
     $scope.me = Meteor.user();
     $scope.helpers({
   		task: () => Tasks.findOne({_id: this.getReactively('taskid')}),
-      comments: () => Comments.find({task: this.getReactively('taskid')})
+      updates: () => Updates.find({task: this.getReactively('taskid')})
   	});
 
     if(!$scope.task.labels)
@@ -23,13 +23,6 @@ angular.module('counterpoint').controller('TaskCtrl', ['$scope', '$mdDialog', '$
 
     var setState = function(state) {
       Tasks.update({_id: $scope.task_id}, { $set: { state: state } })
-    }
-
-    $scope.hiding = $scope.small;
-    $scope.toggleHidden = function() {
-      if($scope.small) {
-
-      }
     }
 
     $scope.getLabelClass = function(chip) {
@@ -91,7 +84,8 @@ angular.module('counterpoint').controller('TaskCtrl', ['$scope', '$mdDialog', '$
     $scope.addComment = function () {
       $scope.new_comment.user = $scope.me.emails[0].address;
       $scope.new_comment.task = $scope.task._id;
-      Comments.insert($scope.new_comment);
+      $scope.new_comment.type = "comment";
+      Updates.insert($scope.new_comment);
       $scope.new_comment = {};
     };
 
@@ -103,6 +97,28 @@ angular.module('counterpoint').controller('TaskCtrl', ['$scope', '$mdDialog', '$
     $scope.possible_owners = [nobody];
     $scope.loadUsers = function() {
       $scope.possible_owners = [nobody].concat(Meteor.users.find({}).fetch());
+    }
+
+    $scope.getUserId = function(id) {
+      var owner = Meteor.users.findOne({ $or: [
+        { _id: id },
+        { username: id },
+        { emails: { $elemMatch: { address: id } } } ] }
+      );
+
+      if(owner) { return owner.getName(); }
+      else if(id == '')
+      { return nobody.name; }
+      else { return id; }
+    }
+
+    $scope.getListName = function(id) {
+      var list = Swimlanes.findOne({_id: id});
+      if(list)
+      { return list.name; }
+      else {
+        return "Unknown";
+      }
     }
 
     $scope.changeOwner = function() {

@@ -87,6 +87,19 @@ app.run(function($rootScope, $state){
     });
 });
 
+// Sometimes we get transient duplicates.  This removes them.
+app.filter('uniqueUpdateIds', function() {
+  return function(updates, condition) {
+    var filtered = [];
+    var existing = [];
+    angular.forEach(updates, function(update) {
+      if(existing.indexOf(update._id) == -1)
+      { filtered.push(update); existing.push(update._id); }
+    });
+
+    return filtered;
+  }
+});
 
 app.filter('tasksIdsFilter', function() {
    return function(task_ids, condition) {
