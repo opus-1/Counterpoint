@@ -27,4 +27,4 @@ else
 fi
 
 echo "Running docker-compose."
-docker-compose
+docker-compose up
