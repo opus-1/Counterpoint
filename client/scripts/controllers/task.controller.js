@@ -95,9 +95,14 @@ angular.module('counterpoint').controller('TaskCtrl', ['$scope', '$mdDialog', '$
       $scope.new_comment = {};
     };
 
-    $scope.possible_owners = [];
+    var nobody = {
+      name: "Nobody",
+      getValidId: function() { return "" },
+      getName: function() { return this.name }
+    }
+    $scope.possible_owners = [nobody];
     $scope.loadUsers = function() {
-      $scope.possible_owners = Meteor.users.find({}).fetch();
+      $scope.possible_owners = [nobody].concat(Meteor.users.find({}).fetch());
     }
 
     $scope.changeOwner = function() {

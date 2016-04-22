@@ -15,7 +15,7 @@
         <i class="fa fa-question fa-lg"></i>
       </span>
       <md-tooltip>
-        Assigned to {{task.getOwner().getName()}}
+        Assigned to {{task.getOwner().getName() || "nobody"}}
       </md-tooltip>
     </md-card-avatar>
     <span flex></span>

@@ -25,31 +25,6 @@ angular.module('counterpoint').controller('KanbanBoardCtrl',
 		if($scope.dragging && !$scope.scroll) {
 			$scope.scroll = true;
 			scroll();
-			// var startLocation = $(".page-content")[0].scrollTop;
-			// var mousePosition = $event.screenY;
-			// var windowHeight = window.innerHeight;
-			// var elementHeight = $(".page-content")[0].scrollHeight;
-			// var endLocation = startLocation;
-			// if(mousePosition > (windowHeight / 3 * 2))
-			// {
-			// 	endLocation += startLocation;
-			// 	if(endLocation > elementHeight)
-			// 	{ endLocation = elementHeight; }
-			// }
-			//
-			// if(mousePosition < (windowHeight / 3))
-			// {
-			// 	endLocation -= 10;
-			// 	if(endLocation < 0)
-			// 	{ endLocation = 0; }
-			// }
-			//
-			// console.debug("Start/End: " + startLocation + "/" + endLocation)
-      // // var increments = distance/(duration/16);
-			//
-			// $scope.scroll = true;
-			// $(".page-content")[0].scrollTop = endLocation;
-			// // var coords ={ y: $event.screenY, x: $event.screenX };
 		}
 	});
 
@@ -152,9 +127,10 @@ angular.module('counterpoint').controller('KanbanBoardCtrl',
 
 	function insertTask(name, list_id) {
 		Tasks.insert({
-			name: name
+			name: name,
+			author: Meteor.user().getValidId()
 		}, function (error, task_id) {
-			Swimlanes.update({ _id: list_id }, { $push: { tasks: task_id } });
+			Swimlanes.update({ _id: list_id }, { $push: { tasks: { $each: [task_id], $position: 0 } } });
 		});
 	};
 
