@@ -13,7 +13,7 @@ if [ -z "$COUNTERPOINT_PORT" ]
 then
   read -p "Please enter the external port: " COUNTERPOINT_PORT
 fi
-if [ -z "$COUNTERPOINT_PORT"]
+if [ -z "$COUNTERPOINT_PORT" ]
 then
   echo " ... invalid port specified!"
   exit 1
