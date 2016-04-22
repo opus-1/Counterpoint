@@ -24,7 +24,16 @@ app.config(function ($urlRouterProvider, $stateProvider, $locationProvider, $mdT
     url: '',
     templateUrl: 'client/templates/main.html',
     controller: 'MainCtrl',
-    abstract: true
+    abstract: true,
+    resolve: {
+      "currentUser": function($q){
+        if(Meteor.userId() == null){
+          return $q.reject('AUTH_REQUIRED');
+        }else{
+          return $q.resolve();
+        }
+      }
+    }
   })
   .state('main.dashboard', {
     url: '/dashboard',
@@ -67,6 +76,15 @@ app.config(function ($urlRouterProvider, $stateProvider, $locationProvider, $mdT
   $mdThemingProvider.theme('default').primaryPalette('pink').accentPalette('orange');
   $mdThemingProvider.setDefaultTheme('default');
   $mdThemingProvider.alwaysWatchTheme(true);
+});
+
+app.run(function($rootScope, $state){
+     $rootScope.$on('$stateChangeError',function(event, toState, toParams, fromState, fromParams, error){
+      if (error === 'AUTH_REQUIRED') {
+        $state.go('login');
+      }
+
+    });
 });
 
 
