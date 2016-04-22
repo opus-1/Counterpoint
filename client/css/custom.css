@@ -42,3 +42,29 @@ task-card.gu-transit md-card {
   cursor: -moz-grabbing;
   cursor: -webkit-grabbing;
 }
+
+.clickable {
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+md-card.small > md-card-header {
+  padding: 3px !important;
+}
+
+md-card.small > md-card-actions {
+  padding: 3px !important;
+}
+
+md-card.small > md-card-title {
+  padding: 3px !important;
+  font-size: 12px;
+}
+
+md-card.small > md-card-content {
+  padding: 3px !important;
+  font-size: 10px;
+}

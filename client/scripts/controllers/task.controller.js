@@ -25,6 +25,13 @@ angular.module('counterpoint').controller('TaskCtrl', ['$scope', '$mdDialog', '$
       Tasks.update({_id: $scope.task_id}, { $set: { state: state } })
     }
 
+    $scope.hiding = $scope.small;
+    $scope.toggleHidden = function() {
+      if($scope.small) {
+
+      }
+    }
+
     $scope.getLabelClass = function(chip) {
       if(chip == "defect")
       { return "fa fa-bug"; }

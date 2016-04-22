@@ -1,7 +1,7 @@
 <div layout="row">
     <div ng-repeat="list in lists track by $index" flex layout="column" ng-cloak="">
       <md-toolbar layout layout-align="center center">
-        <div layout layout-margin flex>
+        <div layout layout-margin flex layout-align="center center">
             <h4>{{list.name}}</h4>
         </div>
         <md-button class="" aria-label="add new task" ng-click="newTaskDialog($event, list._id)" >
@@ -18,7 +18,7 @@
               <span>Empty: click on (+) to add task to this list.</span>
               <span>Or you can move task from other list</span>
           </div>
-          <task-card ng-repeat="task in list.tasks | tasksIdsFilter:search" taskid="task">
+          <task-card small="true" ng-repeat="task in list.tasks | tasksIdsFilter:search" taskid="task">
           </task-card>
       </div>
     </div>

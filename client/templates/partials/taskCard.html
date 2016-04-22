@@ -1,6 +1,12 @@
-<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+<md-card
+  ng-class="{'small': small}"
+  md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}"
+  ng-mouseover="toggleHidden()"
+  ng-mouseout="toggleHidden()"
+  id="task_card_{{task._id}}"
+  md-theme-watch>
   <md-card-header>
-    <md-card-avatar>
+    <md-card-avatar ng-click="editTask()" class="clickable">
       <img
         ng-if="task.getOwner().profile.serial"
         class="md-avatar img-circle"
@@ -17,7 +23,8 @@
   </md-card-header>
   <md-card-title>
     <md-card-title-text>
-        <span class="md-content">{{ task.name }}</span>
+      <span class="md-content"
+        layout-align="center center">{{ task.name }}</span>
     </md-card-title-text>
   </md-card-title>
   <md-card-content>
@@ -30,39 +37,43 @@
       </md-chip-template>
     </md-chips>
   </md-card-content>
-  <md-card-actions layout="row" layout-align="end center">
+  <md-card-actions
+    ng-hide="hiding"
+    layout="row" layout-align="end center">
     <span flex></span>
-    <md-button
-      class="md-primary md-icon-button"
-      ng-click="startWorking()"
-      ng-if="task.state == 'idle' || !task.state">
-      <i class="fa fa-play"></i>
-      <md-tooltip>Start working on this task</md-tooltip>
-    </md-button>
-    <md-button
-      class="md-icon-button"
-      ng-click="stopWorking()"
-      ng-if="task.state == 'working'">
-      <i class="fa fa-stop"></i>
-      <md-tooltip>Stop working on this task</md-tooltip>
-    </md-button>
-    <md-button
-      class="md-warn md-icon-button"
-      ng-click="completeWork()"
-      ng-if="task.state == 'working'">
-      <i class="fa fa-check"></i>
-      <md-tooltip>Complete work on this task</md-tooltip>
-    </md-button>
-    <md-button
-      class="md-warn md-icon-button"
-      ng-click="reopen()"
-      ng-if="task.state == 'done'">
-      <i class="fa fa-recycle"></i>
-      <md-tooltip>Re-open this task</md-tooltip>
-    </md-button>
+    <span ng-if="!small">
+      <md-button
+        class="md-primary md-icon-button"
+        ng-click="startWorking()"
+        ng-if="task.state == 'idle' || !task.state">
+        <i class="fa fa-play"></i>
+        <md-tooltip>Start working on this task</md-tooltip>
+      </md-button>
+      <md-button
+        class="md-icon-button"
+        ng-click="stopWorking()"
+        ng-if="task.state == 'working'">
+        <i class="fa fa-stop"></i>
+        <md-tooltip>Stop working on this task</md-tooltip>
+      </md-button>
+      <md-button
+        class="md-warn md-icon-button"
+        ng-click="completeWork()"
+        ng-if="task.state == 'working'">
+        <i class="fa fa-check"></i>
+        <md-tooltip>Complete work on this task</md-tooltip>
+      </md-button>
+      <md-button
+        class="md-warn md-icon-button"
+        ng-click="reopen()"
+        ng-if="task.state == 'done'">
+        <i class="fa fa-recycle"></i>
+        <md-tooltip>Re-open this task</md-tooltip>
+      </md-button>
       <md-button ng-click="editTask()" class="md-icon-button">
         <i class="fa fa-eye"></i>
         <md-tooltip>View/edit details of this task</md-tooltip>
       </md-button>
+    </span>
   </md-card-actions>
 </md-card>
