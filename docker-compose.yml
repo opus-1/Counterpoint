@@ -1,14 +1,14 @@
 counterpoint:
   image: counterpoint
   ports:
-   - "${COUNTERPOINT_PORT}:80"
+   - "85:80"
   volumes:
    - /srv/docker/counterpoint:/data
   links:
    - mongo
   environment:
    - MONGO_URL=mongodb://mongo/counterpoint
-   - ROOT_URL="http://${COUNTERPOINT_HOSTNAME}:${COUNTERPOINT_PORT}"
+   - ROOT_URL="http://dmsbuilds.svl.ibm.com"
    - MAIL_URL=smtp://na.relay.ibm.com:25
 
 mongo:
