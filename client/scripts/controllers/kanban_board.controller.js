@@ -145,7 +145,7 @@ angular.module('counterpoint').controller('KanbanBoardCtrl',
 			.cancel('Cancel');
 		$mdDialog.show(confirm).then(function (result) {
 			var order = Swimlanes.find({}).count();
-			Swimlanes.insert({ name: result, order: order + 1 });
+			Swimlanes.insert({ name: result, order: order + 1, tasks: [] });
 			var username = Meteor.user().getName();
 			var text = "by " + username;
 			Messages.insert({ subject: "New list added", username: text, createdAt: Date.now(), read: false })
