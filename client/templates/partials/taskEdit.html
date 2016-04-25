@@ -2,7 +2,9 @@
   <form >
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>{{task.name}}</h2>
+        <h2>
+          {{task.name}}
+        </h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="cancel()" aria-label="close">
           <i class="fa fa-times"></i>
@@ -12,13 +14,23 @@
 
     <div class="md-dialog-content">
       <md-dialog-content>
-        <div layout="row">
+        <div layout="column">
           <md-input-container ng-if="editing" flex>
-            <label>Edit Description</label>
+            <label>Task Name</label>
+            <textarea ng-model="task.name">
+            </textarea>
+          </md-input-container>
+
+          <md-input-container ng-if="editing" flex>
+            <label>Task Description</label>
             <textarea ng-model="task.description">
             </textarea>
           </md-input-container>
-          <div ng-if="!editing" ng-bind-html="markdownToHTML(task.description)">
+          <div ng-if="!editing">
+            <h3>Description</h3>
+            <div ng-if="task.description != ''">
+              <div ng-bind-html="markdownToHTML(task.description)"></div>
+            </div>
             <!-- {{markdownToHTML(task.description)}} -->
           </div>
         </div>

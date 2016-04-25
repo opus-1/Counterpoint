@@ -1,9 +1,11 @@
 <md-card
-  ng-class="{'small': small}"
+  ng-class="{ 'small': small }"
+  class="{{classes}}"
   md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}"
   ng-mouseover="toggleHidden()"
   ng-mouseout="toggleHidden()"
   id="task_card_{{task._id}}"
+  ng-dblclick="editTask()"
   md-theme-watch>
   <md-card-header>
     <md-card-avatar ng-click="editTask()" class="clickable">

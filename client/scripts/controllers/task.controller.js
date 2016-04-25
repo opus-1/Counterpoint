@@ -25,11 +25,39 @@ angular.module('counterpoint').controller('TaskCtrl', ['$scope', '$mdDialog', '$
       Tasks.update({_id: $scope.task_id}, { $set: { state: state } })
     }
 
+    $scope.tagExists = function(tag)
+    {
+      return $scope.task.labels.indexOf(tag) != -1;
+    }
+
+    // setup some classes.
+    // TODO: Put this in some option somewhere.
+
+    $scope.$watch('task.labels', function() {
+      checkTags();
+    })
+
+    var checkTags = function() {
+      $scope.classes = "";
+      var things = ["defect", "feature", "supportcase", "issue", "support", "development"]
+      for(var x in things)
+      {
+        var thing = things[x];
+        if($scope.tagExists(thing))
+        { $scope.classes += " " + thing; }
+      }
+      if($scope.classes == "") { $scope.classes = "todo"; }
+    }
+
+    checkTags();
+
     $scope.getLabelClass = function(chip) {
       if(chip == "defect")
       { return "fa fa-bug"; }
       else if(chip == "feature")
       { return "fa fa-plus"; }
+      else if(/support/.test(chip))
+      { return "fa fa-ambulance"; }
       else if(/\d+\.\d+|release.*/.test(chip))
       { return "fa fa-map-signs"; }
     }

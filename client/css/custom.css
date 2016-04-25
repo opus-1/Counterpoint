@@ -68,3 +68,23 @@ md-card.small > md-card-content {
   padding: 3px !important;
   font-size: 10px;
 }
+
+md-card.defect > md-card-header {
+  background-color: #F18A8A;
+}
+
+md-card.feature > md-card-header {
+  background-color: #A2C19D;
+}
+
+md-card.development > md-card-header {
+  background-color: #9DABC1;
+}
+
+md-card.support > md-card-header, md-card.issue > md-card-header, md-card.supportcase > md-card-header {
+  background-color: #FBE859;
+}
+
+md-card.todo > md-card-header {
+  background-color: lightgrey;
+}

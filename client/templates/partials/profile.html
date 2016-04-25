@@ -9,10 +9,12 @@
 
         <md-switch
           ng-model="user.profile.admin"
-          ng-readonly="!user.profile.admin"
+          ng-if="user.username != 'admin' && me.profile.admin"
           aria-label="Is Admin">
           Administrator
         </md-switch>
+
+        <!-- TODO: Add a statement of whether they are an admin or not. -->
       </div>
     </form>
   </md-content>

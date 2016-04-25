@@ -5,7 +5,7 @@ if (Meteor.isServer) {
     {
       var admin_user = {
         username: "admin",
-        emails: ["adminuser@us.ibm.com"],
+        emails: [{ address: "admin@us.ibm.com" }],
         profile: {
           admin: true,
           name: "Builtin Admin"
