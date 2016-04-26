@@ -7,7 +7,7 @@
         </h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="cancel()" aria-label="close">
-          <i class="fa fa-times"></i>
+          <i class="material-icons">close</i>
         </md-button>
       </div>
     </md-toolbar>
@@ -38,34 +38,34 @@
         <div layout="row" layout-wrap>
           <md-button ng-click="edit()" class="md-primary" aria-label="Update">
             <span ng-if="!editing">
-              <i class="fa fa-pencil"></i> Edit
+              <i class="material-icons">mode_edit</i> Edit
             </span>
             <span ng-if="editing">
-              <i class="fa fa-save"></i> Save
+              <i class="material-icons">save</i> Save
             </span>
           </md-button>
           <md-button
             class="md-primary"
             ng-click="startWorking()"
             ng-if="task.state == 'idle'">
-            <i class="fa fa-play"></i> Start Working
+            <i class="material-icons">play_arrow</i> Start Working
           </md-button>
           <md-button
             ng-click="stopWorking()"
             ng-if="task.state == 'working'">
-            <i class="fa fa-stop"></i> Stop Working
+            <i class="material-icons">stop</i> Stop Working
           </md-button>
           <md-button
             class="md-warn"
             ng-click="completeWork()"
             ng-if="task.state == 'working'">
-            <i class="fa fa-check"></i> Complete Work
+            <i class="material-icons">check</i> Complete Work
           </md-button>
           <md-button
             class="md-warn"
             ng-click="reopen()"
             ng-if="task.state == 'done'">
-            <i class="fa fa-recycle"></i> Re-open
+            <i class="material-icons">settings_backup_restore</i> Re-open
           </md-button>
           <span flex></span>
         </div>
@@ -171,10 +171,10 @@
     <md-dialog-actions>
       <md-button ng-click="cancel()" class="md-primary" aria-label="Cancel">
         <span ng-if="!editing">
-          <i class="fa fa-times"></i> Close
+          <i class="material-icons">close</i> Close
         </span>
         <span ng-if="editing">
-          <i class="fa fa-times"></i> Cancel
+         <i class="material-icons">close</i> Cancel
         </span>
       </md-button>
     </md-dialog-actions>

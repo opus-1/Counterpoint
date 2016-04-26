@@ -1,20 +1,10 @@
-<md-card
-  ng-class="{ 'small': small }"
-  class="{{classes}}"
-  md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}"
-  ng-mouseover="toggleHidden()"
-  ng-mouseout="toggleHidden()"
-  id="task_card_{{task._id}}"
-  ng-dblclick="editTask()"
-  md-theme-watch>
+<md-card ng-class="{ 'small': small }" class="{{classes}}" ng-mouseover="toggleHidden()" ng-mouseout="toggleHidden()" id="task_card_{{task._id}}"
+ng-dblclick="editTask()">
   <md-card-header>
     <md-card-avatar ng-click="editTask()" class="clickable">
-      <img
-        ng-if="task.getOwner().profile.serial"
-        class="md-avatar img-circle"
-        ng-src="http://faces.tap.ibm.com/imagesrv/{{task.getOwner().profile.serial}}.jpg?s=115">
-      <span class="img-circle" ng-if="!task.getOwner().profile.serial">
-        <i class="fa fa-question fa-lg"></i>
+      <img ng-if="task.getOwner().profile.serial" class="md-avatar img-circle" ng-src="http://faces.tap.ibm.com/imagesrv/{{task.getOwner().profile.serial}}.jpg?s=115">
+      <span ng-if="!task.getOwner().profile.serial">
+        <i class="material-icons">help_outline</i>
       </span>
       <md-tooltip>
         Assigned to {{task.getOwner().getName() || "nobody"}}
@@ -25,8 +15,7 @@
   </md-card-header>
   <md-card-title>
     <md-card-title-text>
-      <span class="md-content"
-        layout-align="center center">{{ task.name }}</span>
+      <span>{{ task.name}}</span>
     </md-card-title-text>
   </md-card-title>
   <md-card-content>
@@ -39,41 +28,39 @@
       </md-chip-template>
     </md-chips>
   </md-card-content>
-  <md-card-actions
-    ng-hide="small"
-    layout="row" layout-align="end center">
+  <md-card-actions ng-hide="small" layout="row" layout-align="end center">
     <span flex></span>
     <span ng-if="!small">
       <md-button
         class="md-primary md-icon-button"
         ng-click="startWorking()"
         ng-if="task.state == 'idle' || !task.state">
-        <i class="fa fa-play"></i>
+        <i class="material-icons">play_circle_outline</i>
         <md-tooltip>Start working on this task</md-tooltip>
       </md-button>
       <md-button
         class="md-icon-button"
         ng-click="stopWorking()"
         ng-if="task.state == 'working'">
-        <i class="fa fa-stop"></i>
+        <i class="material-icons">stop</i>
         <md-tooltip>Stop working on this task</md-tooltip>
       </md-button>
       <md-button
         class="md-warn md-icon-button"
         ng-click="completeWork()"
         ng-if="task.state == 'working'">
-        <i class="fa fa-check"></i>
+        <i class="material-icons">check</i>
         <md-tooltip>Complete work on this task</md-tooltip>
       </md-button>
       <md-button
         class="md-warn md-icon-button"
         ng-click="reopen()"
         ng-if="task.state == 'done'">
-        <i class="fa fa-recycle"></i>
+        <i class="material-icons">settings_backup_restore</i>
         <md-tooltip>Re-open this task</md-tooltip>
       </md-button>
       <md-button ng-click="editTask()" class="md-icon-button">
-        <i class="fa fa-eye"></i>
+        <i class="material-icons">remove_red_eye</i>
         <md-tooltip>View/edit details of this task</md-tooltip>
       </md-button>
     </span>

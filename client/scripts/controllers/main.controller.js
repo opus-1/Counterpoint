@@ -1,5 +1,9 @@
-angular.module('counterpoint').controller('MainCtrl', ['$scope', '$mdSidenav', '$state', '$rootScope',
-  function ($scope, $mdSidenav, $state, $rootScope) {
+angular.module('counterpoint').controller('MainCtrl', ['$scope', '$mdSidenav', '$state', '$rootScope','$mdColorPalette',
+  function ($scope, $mdSidenav, $state, $rootScope, $mdColorPalette) {
+    
+    $scope.colors = Object.keys($mdColorPalette); 
+    // console.log($mdColorPalette);
+    
     if(Meteor.user() == 'undefined' || Meteor.user() == null){
       $state.go("login");
     }

@@ -52,7 +52,9 @@ task-card.gu-transit md-card {
 }
 
 md-card.small > md-card-header {
-  padding: 3px !important;
+  /*padding: 3px !important;*/
+ padding-top: 3px !important;
+ padding-bottom: 3px !important;
 }
 
 md-card.small > md-card-actions {
@@ -60,15 +62,17 @@ md-card.small > md-card-actions {
 }
 
 md-card.small > md-card-title {
-  padding: 3px !important;
-  font-size: 12px;
+  padding-top: 3px !important;
+  padding-bottom: 3px !important;
+  font-size: 16px;
 }
 
 md-card.small > md-card-content {
-  padding: 3px !important;
+  padding-top: 3px !important;
+  padding-bottom: 3px !important;
   font-size: 10px;
 }
-
+/*
 md-card.defect > md-card-header {
   background-color: #F18A8A;
 }
@@ -87,4 +91,4 @@ md-card.support > md-card-header, md-card.issue > md-card-header, md-card.suppor
 
 md-card.todo > md-card-header {
   background-color: lightgrey;
-}
+}*/
