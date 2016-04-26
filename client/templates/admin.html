@@ -4,11 +4,11 @@
       <h3>User Profiles</h3>
     </div>
   </md-toolbar>
-  <md-content>
-    <div ng-repeat="user in users">
+  <md-content layout="row">
+    <md-card flex="30" flex-sm="50" flex-xs="100" ng-repeat="user in users">
       <user-profile user="user" layout="row" layout-wrap>
       </user-profile>
       <md-divider></md-divider>
-    </div>
+    </md-card>
   </md-content>
 </md-whiteframe>

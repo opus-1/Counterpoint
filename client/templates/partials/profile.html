@@ -7,6 +7,11 @@
           <input ng-model="user.profile.name" ng-disabled="!canEdit()" ng-readonly="!canEdit()">
         </md-input-container>
 
+        <md-input-container>
+          <label>Primary E-mail</label>
+          <input ng-model="user.emails[0].address" ng-disabled="!canEdit()" ng-readonly="!canEdit()">
+        </md-input-container>
+
         <md-switch
           ng-model="user.profile.admin"
           ng-if="user.username != 'admin' && me.profile.admin"
