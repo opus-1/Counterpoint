@@ -50,6 +50,7 @@ if (Meteor.isServer) {
           author: "pellswo@us.ibm.com",
           labels: ["feature", "1.4"],
           state: "idle",
+          points: 50
         }, {
           name: 'Enhancement of storage configuration (LVM)',
           state: "working"

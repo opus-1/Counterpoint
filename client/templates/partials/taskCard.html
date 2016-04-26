@@ -2,7 +2,9 @@
 ng-dblclick="editTask()">
   <md-card-header>
     <md-card-avatar ng-click="editTask()" class="clickable">
-      <img ng-if="task.getOwner().profile.serial" class="md-avatar img-circle" ng-src="http://faces.tap.ibm.com/imagesrv/{{task.getOwner().profile.serial}}.jpg?s=115">
+      <img ng-if="task.getOwner().profile.serial"
+        class="md-avatar img-circle" md-whiteframe="3"
+        ng-src="http://faces.tap.ibm.com/imagesrv/{{task.getOwner().profile.serial}}.jpg?s=115">
       <span ng-if="!task.getOwner().profile.serial">
         <i class="material-icons">help_outline</i>
       </span>

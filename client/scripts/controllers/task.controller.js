@@ -149,6 +149,10 @@ angular.module('counterpoint').controller('TaskCtrl', ['$scope', '$mdDialog', '$
       }
     }
 
+    $scope.changePoints = function() {
+      Tasks.update({_id: $scope.task_id}, { $set: { points: $scope.task.points } })
+    }
+
     $scope.changeOwner = function() {
       Tasks.update({_id: $scope.task_id}, { $set: { owner: $scope.task.owner } })
       $scope.editOwner = false;

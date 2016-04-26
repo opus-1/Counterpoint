@@ -68,6 +68,14 @@
             <i class="material-icons">settings_backup_restore</i> Re-open
           </md-button>
           <span flex></span>
+          <md-input-container flex>
+            <md-select ng-model="task.points" placeholder="Assign Points" md-on-close="changePoints()">
+              <md-option
+                ng-value="opt"
+                ng-repeat="opt in [0, 1, 2, 3, 5, 8, 13, 20, 40, 100]">{{ opt }} point{{ opt == 0 || opt > 1 ? 's' : ''}}
+              </md-option>
+            </md-select>
+          </md-input-container>
         </div>
         <div layout="row" layout-wrap>
           <md-chips flex="100" layout="right center" ng-if="task.labels"
@@ -86,7 +94,10 @@
 
         <div layout="row">
           <md-list-item class="md-3-line" flex>
-            <img class="md-avatar img-circle" ng-src="http://faces.tap.ibm.com/imagesrv/{{task.getAuthor().profile.serial}}.jpg?s=115">
+            <img
+              md-whiteframe="3"
+              class="md-avatar img-circle"
+              ng-src="http://faces.tap.ibm.com/imagesrv/{{task.getAuthor().profile.serial}}.jpg?s=115">
             <div class="md-list-item-text" style="width: 100%">
               <h3>Author</h3>
               <p>{{task.getAuthor().getName() || "Unknown"}}</p>
@@ -99,6 +110,7 @@
             <img
               ng-if="task.getOwner().profile.serial"
               class="md-avatar img-circle"
+              md-whiteframe="3"
               ng-src="http://faces.tap.ibm.com/imagesrv/{{task.getOwner().profile.serial}}.jpg?s=115">
             <div class="md-list-item-text" style="width: 100%">
               <div ng-if="!editOwner">
