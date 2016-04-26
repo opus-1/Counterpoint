@@ -10,10 +10,7 @@ WORKDIR /app
 RUN npm install http://github.com/angular/bower-material/tarball/master
 RUN npm install
 
-RUN meteor build /tmp
-
-# this will create /app/bundle
-RUN tar -xvzf /tmp/app.tar.gz ; rm -f /tmp/app.tar.gz
+RUN meteor build --directory /tmp ; mv /tmp/bundle /app
 
 WORKDIR /app/bundle/programs/server
 RUN npm install

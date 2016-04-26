@@ -22,5 +22,6 @@ if [ -z "$ROOT_URL" ]
 then
   export ROOT_URL="http://localhost"
 fi
+export PORT=8080
 cd /app/bundle
-nodejs main.js
+node main.js
