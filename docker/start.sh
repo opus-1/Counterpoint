@@ -6,6 +6,9 @@ do
   chmod 666 /var/log/$x
 done
 
+# make sure we have a /data/db directory
+mkdir /data/db
+
 # start mongo
 mongod --fork --logpath /var/log/mongod.log
 
