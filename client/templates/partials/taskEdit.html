@@ -3,7 +3,7 @@
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>
-          {{task.name}}
+          #{{task.number}}: {{task.name}}
         </h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="cancel()" aria-label="close">
@@ -148,11 +148,12 @@
             <span style="display: none">{{update._id}}</span>
             <img class="md-avatar img-circle" ng-src="http://faces.tap.ibm.com/imagesrv/{{update.getUser().profile.serial}}.jpg?s=115">
             <div class="md-list-item-text" style="width: 100%">
-              <h3>{{update.getUser().getName() || "Unknown"}}, {{getDate(update.updatedAt).toLowerCase()}}</h3>
+              <h3>{{update.getUser().getName() || "Unknown (" + update.user + ")"}}, {{getDate(update.updatedAt).toLowerCase()}}</h3>
               <div ng-if="update.type == 'comment'" ng-bind-html="markdownToHTML(update.text)"></div>
               <div ng-if="update.type == 'owner-change'">Changed owner from {{getUserId(update.data.previous)}} to {{getUserId(update.data.new)}}</div>
               <div ng-if="update.type == 'state-change'">Changed state from {{update.data.previous}} to {{update.data.new}}</div>
               <div ng-if="update.type == 'list-change'">Changed list from {{getListName(update.data.previous)}} to {{getListName(update.data.new)}}</div>
+              <div ng-if="update.type == 'git-commit'">{{update.message}}. <a href="{{update.data.url}}">{{update.data.hash}}</a>: {{update.data.message}}</div>
             </div>
             <md-divider></md-divider>
           </md-list-item>
