@@ -14,27 +14,47 @@
 
     <div class="md-dialog-content">
       <md-dialog-content>
-        <div layout="column">
-          <md-input-container ng-if="editing" flex>
-            <label>Task Name</label>
-            <textarea ng-model="task.name">
-            </textarea>
-          </md-input-container>
+        <div layout="row">
+          <div layout="column" flex="65">
+            <md-input-container ng-if="editing" flex>
+              <label>Task Name</label>
+              <textarea ng-model="task.name">
+              </textarea>
+            </md-input-container>
 
-          <md-input-container ng-if="editing" flex>
-            <label>Task Description</label>
-            <textarea ng-model="task.description">
-            </textarea>
-          </md-input-container>
-          <div ng-if="!editing">
-            <h3>Description</h3>
-            <div ng-if="task.description != ''">
-              <div ng-bind-html="markdownToHTML(task.description)"></div>
+            <md-input-container ng-if="editing">
+              <label>Task Description</label>
+              <textarea ng-model="task.description">
+              </textarea>
+            </md-input-container>
+            <div ng-if="!editing">
+              <h3>Description</h3>
+              <div ng-if="task.description != ''">
+                <div ng-bind-html="markdownToHTML(task.description)"></div>
+              </div>
+              <!-- {{markdownToHTML(task.description)}} -->
             </div>
-            <!-- {{markdownToHTML(task.description)}} -->
+          </div>
+          <!-- <span flex></span> -->
+          <div layout="column" flex="35">
+            <h3>To-Do List</h3>
+            <div ng-repeat="todo in task.todos track by $index">
+              <div layout="row" layout-align="center center">
+                <md-checkbox ng-model="todo.complete" ng-change="saveTodos()" flex>
+                  {{todo.task}}
+                </md-checkbox>
+                <md-button class="md-icon-button" ng-click="deleteTodo($index)" aria-label="More">
+                  <md-icon class="material-icons md-12" style="color: rgb(170,0,0)">delete</md-icon>
+                </md-button>
+              </div>
+            </div>
+            <div>
+              <md-input-container>
+                <input type="text" ng-model="new_todo.task" placeholder="add todo..." ng-on-enter="addTodo()">
+              </md-input-container>
+            </div>
           </div>
         </div>
-
         <div layout="row" layout-wrap>
           <md-button ng-click="edit()" class="md-primary" aria-label="Update">
             <span ng-if="!editing">

@@ -25,6 +25,25 @@ angular.module('counterpoint').controller('TaskCtrl', ['$scope', '$mdDialog', '$
       Tasks.update({_id: $scope.task_id}, { $set: { state: state } })
     }
 
+    $scope.deleteTodo = function(index) {
+      $scope.task.todos.splice(index, 1);
+      $scope.saveTodos();
+    }
+
+    $scope.saveTodos = function() {
+      Tasks.update({_id: $scope.task_id}, { $set: { todos: $scope.task.todos }})
+    }
+
+    $scope.new_todo = { task: '', complete: false}
+    $scope.addTodo = function() {
+      if(!$scope.task.todos)
+      { $scope.task.todos = []; }
+      $scope.task.todos.push($scope.new_todo);
+      $scope.saveTodos();
+      $scope.new_todo = {};
+      return false;
+    }
+
     $scope.tagExists = function(tag)
     {
       return $scope.task.labels.indexOf(tag) != -1;

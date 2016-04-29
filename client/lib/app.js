@@ -125,3 +125,20 @@ app.filter('tasksIdsFilter', function() {
     return filtered;
   };
 });
+
+app.directive('ngOnEnter', function () {
+  return function (scope, element, attrs) {
+    element.bind("keydown", function (event) {
+      if (event.which === 13) {
+        var return_val = false;
+        scope.$apply(function () {
+          return_val = scope.$eval(attrs.ngOnEnter, {'event': event});
+        });
+
+        if (return_val) {
+          event.preventDefault();
+        }
+      }
+    });
+  };
+});
