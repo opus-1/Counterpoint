@@ -13290,11 +13290,6 @@ md-sidenav._md-locked-open.md-sidenav-left, md-sidenav._md-locked-open {
   min-width: 110px;
   max-width: 110px; }
 
-md-sidenav {
-  width: 110px !important;
-  min-width: 110px !important;
-  max-width: 110px !important; }
-
 a.md-button.md-warn.md-raised, a.md-button.md-warn.md-fab, .md-button.md-warn.md-raised, .md-button.md-warn.md-fab {
   color: white; }
 
