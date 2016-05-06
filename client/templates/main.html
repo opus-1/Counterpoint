@@ -23,7 +23,7 @@
   <md-toolbar layout="row">
     <div class="md-toolbar-tools" layout="row">
       <h1 ng-click="openLeftMenu()" layout-align="center center">
-        <md-button layout layout-align="center center">
+        <md-button layout layout-align="center center" aria-label="logo">
           <img src="/logo/counterpoint.png" width="168" height="27" layout-align="center center">
         </md-button>
       </h1>
@@ -60,7 +60,7 @@
         </md-button>
         <md-menu-content width="3">
           <md-menu-item>
-            <md-button ng-click="$mdCloseMenu()" ui-sref="home.profile">Profile</md-button>
+            <md-button ng-click="$mdCloseMenu()" ui-sref="main.dashboard">Profile</md-button>
           </md-menu-item>
           <md-menu-item>
             <md-button ng-click="logout()">Log out</md-button>

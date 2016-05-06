@@ -124,7 +124,11 @@ md-sidenav._md-locked-open.md-sidenav-left {
   min-width: $left-sidenav-width;
   max-width: $left-sidenav-width;
 }
-
+md-sidenav{
+  width: $left-sidenav-width !important;
+  min-width: $left-sidenav-width !important;
+  max-width: $left-sidenav-width !important;
+}
 a.md-button.md-warn.md-raised, a.md-button.md-warn.md-fab, .md-button.md-warn.md-raised, .md-button.md-warn.md-fab {
   color: white;
 }
