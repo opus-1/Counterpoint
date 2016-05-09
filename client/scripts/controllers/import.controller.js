@@ -1,3 +1,5 @@
+var Papa = require('papaparse');
+
 angular.module('counterpoint').controller('ImportCtrl', function ($scope, $mdDialog, $rootScope, $timeout, $mdToast) {
 
 	angular.element('#csv_file').on('change', function (e) {
@@ -11,6 +13,8 @@ angular.module('counterpoint').controller('ImportCtrl', function ($scope, $mdDia
 
 		Papa.parse(file, {
 			header: true,
+			delimiter: "#",
+			skipEmptyLines: true,
 			complete(results, file) {
 				$scope.headers = results.meta.fields;
 				$scope.data = results.data;
@@ -21,10 +25,19 @@ angular.module('counterpoint').controller('ImportCtrl', function ($scope, $mdDia
 			}
 		});
 	});
+
+	function sanitize(unsanitized) {
+		console.log("Unsanitized: " + unsanitized);
+		return unsanitized.replace(/\\/g, "").replace(/\n/g, "").replace(/\r/g, "")
+			.replace(/\t/g, "").replace(/\f/g, "").replace(/"/g, "")
+			.replace(/'/g, "").replace(/\&/g, "");
+	}
 	$scope.upload = function (e) {
 		$scope.uploading = true;
 		var backlog = null;
 		angular.forEach($scope.data, function (task, index) {
+			console.log(task);
+			console.log("Summary " + task["Summary"]);
 			Tasks.insert({
 				name: task["Summary"].substring(0, 80),
 				points: task["Story Points"],

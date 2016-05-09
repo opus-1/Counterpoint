@@ -4,7 +4,7 @@
   </div>
 </md-toolbar>
 <md-content layout="column" flex layout-align="center center" class="md-padding">
-  <div class="md-whiteframe-1dp">
+  <div class="md-whiteframe-1dp md-padding" layout="column" layout-align="center center" >
     <div ng-show="!uploading">
       <input type="file" id="csv_file" />
     </div>
@@ -13,6 +13,9 @@
         <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
       </svg>
       Uploading...
+    </div>
+    <div>
+      <h4>Delimiter for the CSV should be # </h4>
     </div>
   </div>
 </md-content>
