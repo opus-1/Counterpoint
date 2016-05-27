@@ -1,3 +1,6 @@
+/*
+   Copyright IBM Corp. 2016
+*/
 var Papa = require('papaparse');
 
 angular.module('counterpoint').controller('ImportCtrl', function ($scope, $mdDialog, $rootScope, $timeout, $mdToast) {
