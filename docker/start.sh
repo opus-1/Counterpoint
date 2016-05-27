@@ -1,4 +1,6 @@
 #!/bin/bash
+#  Copyright IBM Corp. 2016
+
 mkdir -p /var/log
 for x in counterpoint.access counterpoint.error nginx.error.log mongod.log
 do

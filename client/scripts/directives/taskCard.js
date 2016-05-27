@@ -1,3 +1,6 @@
+/*
+	 Copyright IBM Corp. 2016
+*/
 angular.module('counterpoint').directive('taskCard', function () {
 	return {
 		restrict: 'E',

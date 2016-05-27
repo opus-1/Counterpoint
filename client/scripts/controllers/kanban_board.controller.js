@@ -1,3 +1,6 @@
+/*
+	 Copyright IBM Corp. 2016
+*/
 /* global Meteor */
 /* global Messages */
 /* global Tasks */

@@ -1,4 +1,6 @@
-
+/*
+	 Copyright IBM Corp. 2016
+*/
 angular.module('counterpoint').controller('LoginCtrl', ['$scope', '$mdToast', '$state',function ($scope, $mdToast, $state) {
 
   $scope.login = function () {

@@ -1,3 +1,6 @@
+/*
+	 Copyright IBM Corp. 2016
+*/
 import 'angular-dragula/dist/dragula.css';
 import ngMaterial from 'angular-material';
 import ngSanitize from 'angular-sanitize';

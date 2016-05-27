@@ -1,6 +1,7 @@
+<!--  Copyright IBM Corp. 2016 -->
 <div layout="row" layout-margin>
     <div ng-repeat="list in lists track by $index" flex layout="column" ng-cloak="">
-      <md-whiteframe class="md-whiteframe-1dp" layout md-colors="{background: '{{colors[$index]}}'}" 
+      <md-whiteframe class="md-whiteframe-1dp" layout md-colors="{background: '{{colors[$index]}}'}"
         md-colors-watch="false" layout-align="center center">
         <div layout flex layout-margin layout-align="center center">
             <h4>{{list.name}}</h4>

@@ -1,3 +1,6 @@
+/*
+	 Copyright IBM Corp. 2016
+*/
 angular.module('counterpoint').controller('MessagesCtrl',['$scope',
   function($scope) {
 

@@ -1,3 +1,6 @@
+/*
+   Copyright IBM Corp. 2016
+*/
 //on the server
 Meteor.startup(function () {
 

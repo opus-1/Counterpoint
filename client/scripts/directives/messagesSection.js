@@ -1,3 +1,6 @@
+/*
+	 Copyright IBM Corp. 2016
+*/
 angular.module('counterpoint').directive('messagesSection', function () {
 	return {
 		restrict: 'E',

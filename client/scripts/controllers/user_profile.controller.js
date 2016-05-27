@@ -1,3 +1,6 @@
+/*
+	 Copyright IBM Corp. 2016
+*/
 angular.module('counterpoint').controller('UserProfileCtrl', ['$scope', '$mdDialog',
   function ($scope, $mdDialog) {
     $scope.me = Meteor.user();

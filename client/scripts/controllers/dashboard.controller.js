@@ -1,3 +1,6 @@
+/*
+	 Copyright IBM Corp. 2016
+*/
 angular.module('counterpoint').controller('DashboardCtrl', function ($scope, dragulaService, $mdDialog, $rootScope) {
 	$scope.me = Meteor.user();
 

@@ -1,3 +1,6 @@
+/*
+   Copyright IBM Corp. 2016
+*/
 var closeTaskRE = /(implements|implemented|finish|finishes|complete[sd]?|close[sd]?|resolve[sd]?|fix|fixe[sd])\s*(issue|task|work\s*item|item|story|defect|support\*case|case|todo)?\s*#?\s*(\d+)/i;
 var referencesTaskRE = /(issue|task|work\s*item|item|story|defect|support\*case|case|todo|#)\s*(\d+)/i;
 Meteor.startup(function () {

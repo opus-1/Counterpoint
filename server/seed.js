@@ -1,3 +1,6 @@
+/*
+   Copyright IBM Corp. 2016
+*/
 if (Meteor.isServer) {
   Meteor.startup(function() {
 

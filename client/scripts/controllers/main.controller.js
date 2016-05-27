@@ -1,9 +1,12 @@
+/*
+	 Copyright IBM Corp. 2016
+*/
 angular.module('counterpoint').controller('MainCtrl', ['$scope', '$mdSidenav', '$state', '$rootScope','$mdColorPalette',
   function ($scope, $mdSidenav, $state, $rootScope, $mdColorPalette) {
-    
-    $scope.colors = Object.keys($mdColorPalette); 
+
+    $scope.colors = Object.keys($mdColorPalette);
     // console.log($mdColorPalette);
-    
+
     if(Meteor.user() == 'undefined' || Meteor.user() == null){
       $state.go("login");
     }
