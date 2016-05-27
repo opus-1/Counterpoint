@@ -30,6 +30,10 @@ angular.module('counterpoint').controller('MainCtrl', ['$scope', '$mdSidenav', '
         name: 'Admin',
         icon: 'settings',
         sref: '.admin'
+      },{
+        name: 'Import CSV',
+        icon: 'file_upload',
+        sref: '.import'
       })
     }
 

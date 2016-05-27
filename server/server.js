@@ -22,44 +22,42 @@ Meteor.startup(function () {
 	});
 
 	HTTP.methods({
-    '/gitlab': function(data) {
+		'/gitlab': function (data) {
 
 			var updates = 0;
 			var messages = [];
-      if(data.object_kind == "push")
-			{
-				for(var i in data.commits) {
+			if (data.object_kind == "push") {
+				for (var i in data.commits) {
 					var commit = data.commits[i];
 					var message = commit.message;
 					var author = commit.author.email;
 
 					var closes = message.match(closeTaskRE);
 					var references = message.match(referencesTaskRE);
-					if(references) {
+					if (references) {
 						var type = references[1];
 						var item = parseInt(references[2]);
-						var task = Tasks.findOne({number: item})
-						if(!task) { messages.push("Skipped " + commit.id + " because couldn't find number " + item); continue; }
+						var task = Tasks.findOne({ number: item })
+						if (!task) { messages.push("Skipped " + commit.id + " because couldn't find number " + item); continue; }
 						var update = {
-			        user: author,
-			        task: task._id,
-			        type: "git-commit",
+							user: author,
+							task: task._id,
+							type: "git-commit",
 							message: 'referenced by git commit',
-			        data: {
+							data: {
 								hash: commit.id,
-			          url: commit.url,
+								url: commit.url,
 								message: commit.message
-			        }
-			      }
-
-						if(closes)
-						{
-							update.message = "referenced and closed by git commit";
-							if(task.state != "done")
-							{ Tasks.update({_id: task._id}, { $set: { state: 'done' } }); }
+							}
 						}
 
-			      Updates.insert(update);
+						if (closes) {
+							update.message = "referenced and closed by git commit";
+							if (task.state != "done")
+							{ Tasks.update({ _id: task._id }, { $set: { state: 'done' } }); }
+						}
+
+						Updates.insert(update);
 						updates += 1;
 					}
 					else {
@@ -68,8 +66,8 @@ Meteor.startup(function () {
 				}
 			}
 
-			return {updates: updates, messages: messages}
+			return { updates: updates, messages: messages }
 			// handle other interactions here if we want.
-    }
-  });
+		}
+	});
 });

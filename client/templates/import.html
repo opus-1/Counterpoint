@@ -1,0 +1,46 @@
+<md-toolbar class="md-accent">
+  <div class="md-toolbar-tools">
+    <h3>Upload CSV file</h3>
+  </div>
+</md-toolbar>
+<md-content layout="column" flex layout-align="center center" class="md-padding">
+  <div class="md-whiteframe-1dp md-padding" layout="column" layout-align="center center" >
+    <div ng-show="!uploading">
+      <input type="file" id="csv_file" />
+    </div>
+    <div ng-show="uploading">
+      <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+        <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+      </svg>
+      Uploading...
+    </div>
+    <div>
+      <h4>Delimiter for the CSV should be # </h4>
+    </div>
+  </div>
+</md-content>
+<md-content flex class="md-padding" id="table-content" ng-show="!uploading">
+  <div class="table-responsive-vertical md-whiteframe-z1">
+    <table id="table" class="table table-hover table-bordered">
+      <thead>
+        <tr>
+          <th ng-repeat="header in headers track by $index">{{ header }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in data track by $index">
+          <td ng-repeat="col in headers track by $index" data-title="{{ col }}">{{ row[col] }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</md-content>
+<md-button
+  class="md-fab md-primary md-fab-bottom-right" ng-show="data.length > 1" ng-disabled="uploading"
+  style="position: fixed;"
+  aria-label="upload file" ng-click="upload($event)">
+          <md-tooltip md-direction="left">
+          Upload File
+        </md-tooltip>
+    <i class="material-icons md-36">file_upload</i>
+</md-button>

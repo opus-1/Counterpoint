@@ -52,6 +52,19 @@ app.config(function ($urlRouterProvider, $stateProvider, $locationProvider, $mdT
     url: '/board',
     templateUrl: 'client/templates/kanban_board.html',
     controller: 'KanbanBoardCtrl'
+  }).state('main.import',{
+    url: '/import',
+    templateUrl: 'client/templates/import.html',
+    controller: 'ImportCtrl',
+    resolve:{
+      "Admin": function($q){
+        if(Meteor.userId() != null && Meteor.user().profile.admin){
+          return $q.resolve();
+        }else{
+          return $q.reject('AUTH_REQUIRED');
+        }
+      }
+    }
   })
   .state('login',{
     url: '/login',

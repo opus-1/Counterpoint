@@ -14,7 +14,7 @@ angular.module('counterpoint').controller('TaskCtrl', ['$scope', '$mdDialog', '$
       updates: () => Updates.find({task: this.getReactively('taskid')})
   	});
 
-    if(!$scope.task.labels)
+    if($scope.task != undefined && !$scope.task.labels)
     { $scope.task.labels = []; }
 
     // Not 100% sure this is needed.  But it works...
@@ -49,7 +49,11 @@ angular.module('counterpoint').controller('TaskCtrl', ['$scope', '$mdDialog', '$
 
     $scope.tagExists = function(tag)
     {
-      return $scope.task.labels.indexOf(tag) != -1;
+      if($scope.task != undefined){
+        return $scope.task.labels.indexOf(tag) != -1;        
+      }else{
+        return false;
+      }
     }
 
     // setup some classes.
